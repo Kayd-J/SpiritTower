@@ -5,10 +5,8 @@
 class ServerListener {
 public:
     ServerListener(const char* ipAddress, int port) : m_ipAddress(ipAddress), m_port(port) { }
-    //Inits the structure of the server
     int init();
 protected:
-    //Sends message
     void sendToClient(int clientSocket, const char* msg, int length);
     void onMessageReceived(int clientSocket, const char* msg, int length);
     virtual void onClientConnected(int clientSocket);
