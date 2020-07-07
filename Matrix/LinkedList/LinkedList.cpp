@@ -52,6 +52,65 @@ void LinkedList::addTop(Square* square){
 	size++;
 }
 
+void LinkedList::removeNode(Square* square){
+	Node* temp = new Node();
+	temp = this->head;
+	if (temp->getSquare()==square) {
+		temp = temp->getNext();
+		this->head = temp;
+	}
+	else {
+		while (temp->getNext() != nullptr) {
+			if (temp->getNext()->getSquare() == square) {
+				if (temp->getNext() == this->tail) {
+					temp->setNext(temp->getNext()->getNext());
+					this->tail = temp;
+					tail->setNext(temp->getNext());
+					break;
+				}
+				else {
+					temp->setNext(temp->getNext()->getNext());
+					break;
+				}
+			}
+			temp = temp->getNext();
+		}
+	}
+	size--;
+}
+
+Node* LinkedList::getTail(){
+	return this->tail;
+}
+
+bool LinkedList::isInList(Square* square){
+	Node* temp = this->head;
+	while (temp != nullptr){
+		if (temp->getSquare() == square) {
+			return true;
+		}
+		temp = temp->getNext();
+	}
+	return false;
+}
+
+Square* LinkedList::getRandomNode(){
+	Node* temp = this->head;
+	int i = 0;
+	int index = rand() % size;
+	if (size == 1) {
+		return this->head->getSquare();
+	}
+	else {
+		while (i != index) {
+			temp = temp->getNext();
+			i++;
+		}
+	}
+	return temp->getSquare();
+	
+}
+
 
 
 

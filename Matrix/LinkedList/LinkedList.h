@@ -16,5 +16,9 @@ public:
 	Node* getHead();
 	void display();
 	void addTop(Square* square);
+	void removeNode(Square* square);
+	Node* getTail();
+	bool isInList(Square* square);
+	Square* getRandomNode();
 };
 
