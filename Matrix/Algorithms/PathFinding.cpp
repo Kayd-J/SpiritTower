@@ -1,6 +1,9 @@
 #include "PathFinding.h"
 
-LinkedList PathFinding::searchPath(Square* start, Square* end){
+LinkedList PathFinding::searchPath(Matrix mat, Square* start, Square* end){
+	list<Square*> openList;
+	list<Square*> closedList;
+	LinkedList pathList;
 	openList.push_back(start);
 	Square* winner = new Square;
 	bool finished = false;
@@ -12,7 +15,7 @@ LinkedList PathFinding::searchPath(Square* start, Square* end){
 			auto lastn = openList.end();
 			//analizamos que elementos de openlist tiene menor coste
 			for (iter;iter!=lastn;++iter) {
-				if ((*iter)->getGcost() < winner->getFcost()) {
+				if ((*iter)->getFcost() < winner->getFcost()) {
 					winner = *iter;
 				}
 			}
@@ -68,6 +71,7 @@ LinkedList PathFinding::searchPath(Square* start, Square* end){
 			finished = true;
 		}
 	}
+	mat.resetMat();
 	return pathList;
 }
 
