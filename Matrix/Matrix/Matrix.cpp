@@ -109,13 +109,49 @@ int Matrix::getRandomValue(){
 	return value;
 }
 
+void Matrix::resetMat(){
+	Square* temp = this->head;
+	Square* temp2 = this->head;
+	while (temp2 != nullptr) {
+		while (temp != nullptr) {
+			temp->setFcost(0);
+			temp->setHcost(0);
+			temp->setGcost(0);
+			temp->setFather(nullptr);
+			temp = temp->getNexCol();
+		}
+		temp2 = temp2->getNexRow();
+		temp = temp2;
+	}
+}
+
+void Matrix::removeNeighbors(){
+	Square* temp = this->head;
+	Square* temp2 = this->head;
+	while (temp2 != nullptr) {
+		while (temp != nullptr) {
+			auto it = temp->neighborsList.begin();
+			auto last = temp->neighborsList.end();
+			for (it; it != last; ++it) {
+				if ((*it)->getEntity() == 1) {
+					temp->neighborsList.remove(*it);
+					it = temp->neighborsList.begin();
+				}
+			}
+			temp = temp->getNexCol();
+		}
+		temp2 = temp2->getNexRow();
+		temp = temp2;
+	}
+}
+
 
 void Matrix::addNeighbors() {
 	Square* temp = this->head;
 	Square* temp2 = this->head;
-	int cont = 0;
 	while (temp2 != nullptr) {
 		while (temp != nullptr) {
+			temp->neighborsList.clear();
 			if (temp->getColNumb() > 0) {
 				temp->neighborsList.push_back(temp->getPrevCol());
 			}

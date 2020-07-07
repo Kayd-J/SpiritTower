@@ -38,6 +38,5 @@ public:
 	void setPrevCol(Square* square);
 	void setFather(Square* square);
 	list<Square*> neighborsList;
-	Square* neighbors[4];
 };
 

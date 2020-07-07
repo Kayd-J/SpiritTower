@@ -3,7 +3,6 @@
 #include "Square.h"
 #include <time.h>
 #include <stdlib.h>
-#include "PathFinding.h"
 
 using namespace std;
 class Matrix{
@@ -20,9 +19,10 @@ public:
 	int getSize();
 	void addNeighbors();
 	Square* getHead();
-	PathFinding pathFind;
 	Square* getTail();
 	int getRandomValue();
+	void resetMat();
+	void removeNeighbors();
 };
 
 
