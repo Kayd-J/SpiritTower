@@ -3,10 +3,28 @@
 
 #include "pch.h"
 #include <iostream>
+#include "Spectrum.h"
+#include "breeder.h"
+
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n"; 
+    
+    vector<Spectrum> especs;
+    breeder* breeder1 = new breeder();
+
+    for (int i = 0; i < 4; ++i) {
+        int ran = rand() % 2;
+        cout << ran << endl;
+    }
+
+
+    especs = breeder1->newGeneration();
+
+    cout << especs.at(2).getExtra() << endl;
+    
+
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
