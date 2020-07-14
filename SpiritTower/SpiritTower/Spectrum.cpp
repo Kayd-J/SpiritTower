@@ -44,3 +44,23 @@ void Spectrum::setExtra(int extra_)
 {
 	extra = extra_;
 }
+
+string Spectrum::getId() const
+{
+	return id;
+}
+
+void Spectrum::setId(int id_)
+{
+	id = id_;
+}
+
+int Spectrum::getFitness() const
+{
+	return fitness;
+}
+
+void Spectrum::setFitness()
+{
+	fitness = srch_speed+chase_speed+range+extra;
+}

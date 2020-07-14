@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Spectrum.h"
 #include "breeder.h"
+#include <string>
 
 using namespace std;
 
@@ -14,14 +15,16 @@ int main()
     vector<Spectrum> especs;
     breeder* breeder1 = new breeder();
 
+    string u = to_string(10);
+    /**
     for (int i = 0; i < 4; ++i) {
         int ran = rand() % 2;
         cout << ran << endl;
     }
+    **/
 
-
-    especs = breeder1->newGeneration();
-
+    especs = breeder1->firstGeneration();
+    especs = breeder1->newGeneration(especs);
     cout << especs.at(2).getExtra() << endl;
     
 

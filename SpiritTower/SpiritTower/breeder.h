@@ -14,14 +14,16 @@ private:
 
     int generation = 1;
 
-    vector<Spectrum> gen1;
-    vector<Spectrum> gen2;
+    vector<Spectrum> genA;
+    vector<Spectrum> genB;
 
     Spectrum parentA;
     Spectrum parentB;
 
 
-    Spectrum cross(Spectrum);
+    Spectrum cross(Spectrum parentA, Spectrum parentB);
+
+    string mutation(int op, string genetic);
 
 public:
     /**
@@ -43,6 +45,6 @@ public:
     int getGeneration();
 
     vector<Spectrum> newGeneration(vector<Spectrum> gen);
-    vector<Spectrum> newGeneration();
+    vector<Spectrum> firstGeneration();
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
@@ -11,6 +12,8 @@ private:
     int chase_speed;
     int range;
     int extra;
+    string id;
+    int fitness;
 
 public:
 
@@ -32,5 +35,13 @@ public:
     int getExtra() const;
 
     void setExtra(int extra_);
+
+    string getId() const;
+
+    void setId(int id_);
+
+    int getFitness() const;
+
+    void setFitness();
 };
 
