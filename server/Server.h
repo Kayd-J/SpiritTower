@@ -13,11 +13,16 @@
 class Server : public ServerListener{
 public:
     /**
-   * @brief crea lector de mensajes entrantes.
-   */
+      * @brief crea lector de mensajes entrantes.
+      */
     void run();
+    void onMessageReceived(std::string message);
+    void sendMessage(std::string message);
+    void sendDisconnectMessage();
+    std::string CLOSING_CLIENT = "SERVERisCLOSING";
+    std::string SENDING_DATA = "DATADEFAULT";
+    int  clientLength = sizeof(ClientSocket);
 protected:
     bool running = true;
-    int  clientLength = sizeof(ClientSocket);
 };
 
