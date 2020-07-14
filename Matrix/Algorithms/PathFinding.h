@@ -6,7 +6,7 @@
 using namespace std;
 class PathFinding{
 public:
-	LinkedList searchPath(Matrix mat,Square* start, Square* end);
+	LinkedList searchPath(Matrix &mat,Square* start, Square* end);
 	int heuristic(Square* start, Square* end);
 	bool includes(list<Square*> list, Square* square);
 };

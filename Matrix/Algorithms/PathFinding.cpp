@@ -1,6 +1,6 @@
 #include "PathFinding.h"
 
-LinkedList PathFinding::searchPath(Matrix mat, Square* start, Square* end){
+LinkedList PathFinding::searchPath(Matrix &mat, Square* start, Square* end){
 	list<Square*> openList;
 	list<Square*> closedList;
 	LinkedList pathList;
