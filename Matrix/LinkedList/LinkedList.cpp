@@ -33,7 +33,7 @@ Node* LinkedList::getHead(){
 void LinkedList::display(){
 	Node* temp = this->head;
 	while (temp != nullptr) {
-		cout << temp->getSquare()->getRowNumb() << "--"<< temp->getSquare()->getColNumb()<<endl;
+		cout << temp->getSquare()->getRowNumb() << "--" << temp->getSquare()->getColNumb() << endl;
 		temp = temp->getNext();
 	}
 }
