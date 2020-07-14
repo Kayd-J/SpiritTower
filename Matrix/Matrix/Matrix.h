@@ -3,6 +3,7 @@
 #include "Square.h"
 #include <time.h>
 #include <stdlib.h>
+#include <fstream>
 
 using namespace std;
 class Matrix{
@@ -23,6 +24,8 @@ public:
 	int getRandomValue();
 	void resetMat();
 	void removeNeighbors();
+	void fillMat();
+	Square* findSquare(int row,int col);
 };
 
 

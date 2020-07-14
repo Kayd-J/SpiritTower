@@ -19,7 +19,7 @@ void Matrix::createMatrix(int rows, int cols) {
 			Square* temp = new Square;
 			temp->setColNumb(j);
 			temp->setRowNumb(i);
-			temp->setEntity(getRandomValue());
+			temp->setEntity(0);
 			if (this->head == nullptr) {
 				this->head = temp;
 				temp2 = this->head;
@@ -70,6 +70,7 @@ void Matrix::createMatrix(int rows, int cols) {
 		temp2 = temp2->getNexRow();
 	}
 	this->tail = temp2;
+	fillMat();
 	addNeighbors();
 }
 
@@ -125,6 +126,7 @@ void Matrix::resetMat(){
 	}
 }
 
+
 void Matrix::removeNeighbors(){
 	Square* temp = this->head;
 	Square* temp2 = this->head;
@@ -145,6 +147,40 @@ void Matrix::removeNeighbors(){
 	}
 }
 
+void Matrix::fillMat(){
+	string entireString;
+	int i = 0;
+	string readingLine;
+	ifstream readFile;
+	readFile.open("Sources/matrix.txt");
+	while (!readFile.eof()) {
+		readFile >> readingLine;
+		entireString = entireString + readingLine;
+	}
+	readFile.close();
+	Square* temp = this->head;
+	Square* temp2 = this->head;
+	while (temp2 != nullptr) {
+		while (temp != nullptr) {
+			temp->setEntity((entireString.at(i) - '0'));
+			temp = temp->getNexCol();
+			i++;
+		}
+		temp2 = temp2->getNexRow();
+		temp = temp2;
+	}
+}
+
+Square* Matrix::findSquare(int row, int col){
+	Square* temp = this->head;
+	while (temp->getRowNumb()!=row) {
+		while (temp->getColNumb() != col) {
+			temp = temp->getNexCol();
+		}
+		temp = temp->getNexRow();
+	}
+	return temp;
+}
 
 void Matrix::addNeighbors() {
 	Square* temp = this->head;
@@ -170,4 +206,3 @@ void Matrix::addNeighbors() {
 		temp = temp2;
 	}
 }
-
