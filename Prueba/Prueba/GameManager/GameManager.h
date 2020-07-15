@@ -6,6 +6,7 @@
 #include <chrono>
 #include <string>
 #include "../Algorithms/PathFinding.h"
+#include "../Algorithms/BackTracking.h"
 
 
 using namespace std;
@@ -16,8 +17,11 @@ private:
 	GameManager();
 	Player player;
 	list<Spectrum*> spectrumList;
+	
 
 public:
+	bool chasingPlayer = true;
+	bool walking = false;
 	static GameManager* getInstance();
 	Matrix matrixLevel;
 	string map[20][20];
@@ -31,5 +35,9 @@ public:
 	thread starting;
 	bool inGame = false;
 	void mapUpdate();
+	void returnBack();
+	void patrolling();
+	int level = 1;
+	void fillLevelList();
 };
 

@@ -9,6 +9,7 @@ void LinkedList::addNode(Square* square){
 	}
 	else {
 		tail->setNext(temp);
+		temp->setPrev(tail);
 		tail = tail->getNext();
 	}
 	size++;
@@ -66,10 +67,12 @@ void LinkedList::removeNode(Square* square){
 					temp->setNext(temp->getNext()->getNext());
 					this->tail = temp;
 					tail->setNext(temp->getNext());
+					tail->setPrev(temp->getPrev());
 					break;
 				}
 				else {
 					temp->setNext(temp->getNext()->getNext());
+					temp->getNext()->setPrev(temp);
 					break;
 				}
 			}
