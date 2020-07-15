@@ -6,7 +6,7 @@
 using namespace std;
 class BackTracking{
 public:
-	LinkedList searchPath(Matrix &mat, Square* start, Square* end);
+	LinkedList searchPath(Matrix mat, Square* start, Square* end);
 	Square* searchPath(Square* &square, LinkedList* &path, LinkedList* &visited);
 };
 

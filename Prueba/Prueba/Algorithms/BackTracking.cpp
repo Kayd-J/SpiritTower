@@ -1,6 +1,6 @@
 #include "BackTracking.h"
 
-LinkedList BackTracking::searchPath(Matrix &mat, Square* start, Square* end) {
+LinkedList BackTracking::searchPath(Matrix mat, Square* start, Square* end) {
     LinkedList* path = new LinkedList;
     LinkedList* visited = new LinkedList;
     mat.removeNeighbors();
@@ -51,21 +51,6 @@ Square* BackTracking::searchPath(Square* &square,LinkedList* &path, LinkedList* 
         for (it; it != last;++it) {
             vecinos.addNode(*it);
         }
-        /*
-        for (it; it != last; ++it) {
-            if (path->isInList((*it))==true || visited->isInList(*it)==true) {
-                neighborFree = false;
-            }
-            else if(path->isInList((*it)) == false) {
-                neighborFree = true;
-                Square* temp = (*it);
-                square->neighborsList.remove((*it));
-                square = temp;
-                path->addNode(square);
-                break;
-            }
-        }
-        */
         while(vecinos.getSize()>0) {
             Square* tempNeighbor = vecinos.getRandomNode();
             if (path->isInList(tempNeighbor) == true || visited->isInList(tempNeighbor) == true) {

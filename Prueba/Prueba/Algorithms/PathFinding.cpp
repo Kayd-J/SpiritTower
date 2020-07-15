@@ -1,6 +1,6 @@
 #include "PathFinding.h"
 
-LinkedList PathFinding::searchPath(Matrix &mat, Square* start, Square* end){
+LinkedList PathFinding::searchPath(Matrix mat, Square* start, Square* end){
 	list<Square*> openList;
 	list<Square*> closedList;
 	LinkedList pathList;
@@ -42,7 +42,7 @@ LinkedList PathFinding::searchPath(Matrix &mat, Square* start, Square* end){
 				for (it; it != last;++it) {
 					Square* neighbor = *it;
 					//Si el vecino no esta en closedList y no es una pared
-					if (includes(closedList,neighbor)==false && (neighbor->getEntity() != 1)) {
+					if (includes(closedList,neighbor)==false && (neighbor->getEntity() != 1) && (neighbor->getEntity() != 2) && (neighbor->getEntity() != 4)) {
 						int tempG = (winner->getGcost() + 1);
 						//Si vecino esta en openList y su peso es mayor
 						if (includes(openList,neighbor)==true) {
