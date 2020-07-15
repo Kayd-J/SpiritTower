@@ -16,6 +16,8 @@ public class PlayableMap : MonoBehaviour
     private int mapPlayerPosX = -1;
     private int mapPlayerPosY = -1;
 
+    [SerializeField] Rigidbody player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,13 +32,13 @@ public class PlayableMap : MonoBehaviour
     }
 
     private void DrawBoard() {
-        Vector3 widthLine = Vector3.right * 10;
-        Vector3 heigthLine = Vector3.forward * 10;
+        Vector3 widthLine = Vector3.right * 20;
+        Vector3 heigthLine = Vector3.forward * 20;
 
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <=20; i++) {
             Vector3 start = Vector3.forward * i;
             Debug.DrawLine(start, start + widthLine);
-            for (int g = 0; g <= 10; g++)
+            for (int g = 0; g <= 20; g++)
             {
                 start = Vector3.right * g;
                 Debug.DrawLine(start, start + heigthLine);
@@ -55,16 +57,20 @@ public class PlayableMap : MonoBehaviour
         if (!Camera.main)
             return;
         RaycastHit hit;
+        Debug.Log((int) player.transform.position.x);
         //Este if debe dar la posicion del jugador en la matriz para poder ser procesada
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 25.0f, LayerMask.GetMask("MapaNivel")))
-        {
-            mapPlayerPosX = (int)hit.point.x;
-            mapPlayerPosY = (int)hit.point.z;
-            //Debug.Log(selectionx);
-        }
-        else {
-            mapPlayerPosX = -1;
-            mapPlayerPosY = -1;
-        }
+
+        
+       // if (Physics.Raycast(Camera.main.ScreenPointToRay(player.transform.position), out hit, 25.0f, LayerMask.GetMask("MapaNivel")))
+        //{
+         //   mapPlayerPosX = (int)hit.point.x;
+          //  mapPlayerPosY = (int)hit.point.z;
+            //Debug.Log(mapPlayerPosX);
+        //}
+        //else {
+
+           // mapPlayerPosX = -1;
+           // mapPlayerPosY = -1;
+       // }
     }
 }
