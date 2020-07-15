@@ -86,7 +86,7 @@ public class UDPSend : MonoBehaviour
 
         // define
         IP = "127.0.0.1";
-        port = 8051;
+        port = 54000;
 
         // ----------------------------
         // Senden

@@ -11,10 +11,10 @@ public class PlayableMap : MonoBehaviour
 {
     private const float TileSize = 1.0f;
     private const float TileOfset = 0.5f;
-
-
     private int mapPlayerPosX = -1;
     private int mapPlayerPosY = -1;
+
+    private int InvertYPlayer=19;
 
     [SerializeField] Rigidbody player;
 
@@ -56,21 +56,24 @@ public class PlayableMap : MonoBehaviour
     private void PlayerPos() {
         if (!Camera.main)
             return;
-        RaycastHit hit;
-        Debug.Log((int) player.transform.position.x);
+        //RaycastHit hit;
+        //Debug.Log(InvertYPlayer - (int)player.transform.position.z);
         //Este if debe dar la posicion del jugador en la matriz para poder ser procesada
 
         
-       // if (Physics.Raycast(Camera.main.ScreenPointToRay(player.transform.position), out hit, 25.0f, LayerMask.GetMask("MapaNivel")))
-        //{
-         //   mapPlayerPosX = (int)hit.point.x;
-          //  mapPlayerPosY = (int)hit.point.z;
-            //Debug.Log(mapPlayerPosX);
+       // if (Physics.Raycast(Camera.main.ScreenPointToRay(player.transform.position), out hit, 0f, LayerMask.GetMask("MapaNivel")))
+       // {
+       //     mapPlayerPosX = (int)hit.point.x;
+        //    mapPlayerPosY = (int)hit.point.z;
         //}
-        //else {
-
-           // mapPlayerPosX = -1;
-           // mapPlayerPosY = -1;
-       // }
+        if (player.transform.position.x <20 && player.transform.position.z < 20){
+            mapPlayerPosX = (int)player.transform.position.x;
+            mapPlayerPosY = (int)player.transform.position.z;
+            Debug.Log(mapPlayerPosX + mapPlayerPosY);
+        }
+       else {
+            mapPlayerPosX = -1;
+            mapPlayerPosY = -1;
+        }
     }
 }
