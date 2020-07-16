@@ -1,7 +1,10 @@
 #pragma once
-#include "network/ServerListener.h"
+//#include "network/ServerListener.h"
 #include <string>
 #include <iterator>
+//#include "messagesManager/JsonHandler.h"
+#include "../GameManager/GameManager.h"
+
 /**
  *  @file Server.h
  *  @version 1.0

@@ -130,6 +130,8 @@ void GameManager::mapUpdate(){
 	int xp = player.posX;
 	int yp = player.posY;
 	map[xp][yp] = player.ids;
+	sendMap = Serialize::SerializeMatrix(map);
+	cout << sendMap << endl;
 }
 
 void GameManager::returnBack(){
@@ -254,6 +256,7 @@ void run() {
 	GameManager* gmr = GameManager::getInstance();
 	while (gmr->inGame) {
 		gmr->mapUpdate();
+		gmr->gameServer.sendJSON(gmr->sendMap);
 		gmr->displayMap();
 		if (gmr->walking == true) {
 			gmr->patrolling();
@@ -265,6 +268,6 @@ void run() {
 			gmr->returnBack();
 		}
 		cout << "----------------------------------------------" << endl;
-		this_thread::sleep_for(chrono::milliseconds(200));
+		this_thread::sleep_for(chrono::milliseconds(1000));
 	}
 }

@@ -7,6 +7,8 @@
 #include <string>
 #include "../Algorithms/PathFinding.h"
 #include "../Algorithms/BackTracking.h"
+#include "../server/messagesManager/Serialize.h"
+#include "../server/messagesManager/GameServer.h"
 
 
 using namespace std;
@@ -17,15 +19,14 @@ private:
 	GameManager();
 	Player player;
 	list<Spectrum*> spectrumList;
-	
-
 public:
+	GameServer gameServer;
 	bool chasingPlayer = true;
 	bool walking = false;
 	static GameManager* getInstance();
 	Matrix matrixLevel;
 	string map[20][20];
-
+	string sendMap;
 	void fillMap(Matrix mat);
 	//Entidad enemigos
 	//Entidad Jugador(singleton)

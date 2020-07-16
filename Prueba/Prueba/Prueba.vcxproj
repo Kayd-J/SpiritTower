@@ -142,6 +142,7 @@
   <ItemGroup>
     <ClCompile Include="Algorithms\BackTracking.cpp" />
     <ClCompile Include="GameManager\GameManager.cpp" />
+    <ClCompile Include="server\messagesManager\GameServer.cpp" />
     <ClCompile Include="LinkedList\LinkedList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix\Matrix.cpp" />
@@ -149,6 +150,7 @@
     <ClCompile Include="Matrix\Square.cpp" />
     <ClCompile Include="Algorithms\PathFinding.cpp" />
     <ClCompile Include="Player\Player.cpp" />
+    <ClCompile Include="server\messagesManager\Serialize.cpp" />
     <ClCompile Include="server\messagesManager\JsonHandler.cpp" />
     <ClCompile Include="server\network\ServerListener.cpp" />
     <ClCompile Include="server\Server.cpp" />
@@ -157,12 +159,14 @@
   <ItemGroup>
     <ClInclude Include="Algorithms\BackTracking.h" />
     <ClInclude Include="GameManager\GameManager.h" />
+    <ClInclude Include="server\messagesManager\GameServer.h" />
     <ClInclude Include="LinkedList\LinkedList.h" />
     <ClInclude Include="Matrix\Matrix.h" />
     <ClInclude Include="LinkedList\Node.h" />
     <ClInclude Include="Matrix\Square.h" />
     <ClInclude Include="Algorithms\PathFinding.h" />
     <ClInclude Include="Player\Player.h" />
+    <ClInclude Include="server\messagesManager\Serialize.h" />
     <ClInclude Include="server\messagesManager\JsonHandler.h" />
     <ClInclude Include="server\network\ServerListener.h" />
     <ClInclude Include="server\Server.h" />

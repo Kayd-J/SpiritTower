@@ -1,6 +1,5 @@
 #include "Server.h"
-#include "messagesManager/JsonHandler.h"
-#include "../GameManager/GameManager.h"
+
 void Server::run() {
     GameManager* game = GameManager::getInstance();
     ZeroMemory(&ClientSocket, clientLength);
@@ -25,10 +24,7 @@ void Server::sendDisconnectMessage() {
 void Server::sendMessage(std::string message) {
     sendto(m_socket, (char*)&message, sizeof(message), 0, (struct sockaddr*)&ClientSocket, clientLength);
 }
+
 void Server::onMessageReceived(std::string message) {
-    if (JsonHandler::Deserialize(message)) {
-    }
-    else {
-        sendMessage(message);
-    }
+    sendMessage(message);
 }
