@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float JumpVel;
+    float JumpVel= 1f;
     public Rigidbody rigidbody;
     float axisX;
     float axisY;
@@ -22,7 +22,6 @@ public class Movement : MonoBehaviour
     {
         axisX = Input.GetAxis("Horizontal");
         axisY = Input.GetAxis("Vertical");
-
         axis = new Vector3(axisX,0,axisY);
 
         if (Input.GetButtonDown("Jump")) {

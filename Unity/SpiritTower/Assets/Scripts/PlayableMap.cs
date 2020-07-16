@@ -14,9 +14,18 @@ public class PlayableMap : MonoBehaviour
     private int mapPlayerPosX = -1;
     private int mapPlayerPosY = -1;
 
-    private int InvertYPlayer=19;
+    private int InvertYPlayer = 19;
 
     [SerializeField] Rigidbody player;
+
+    private string[,] GameMatrix;
+
+
+    void Awake() { 
+
+        //Aqui es donde debo meter la matrix
+    
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +39,7 @@ public class PlayableMap : MonoBehaviour
         PlayerPos();
         DrawBoard();
     }
-
+    // Visualizacion de la matriz
     private void DrawBoard() {
         Vector3 widthLine = Vector3.right * 20;
         Vector3 heigthLine = Vector3.forward * 20;
@@ -54,22 +63,9 @@ public class PlayableMap : MonoBehaviour
     }
 
     private void PlayerPos() {
-        if (!Camera.main)
-            return;
-        //RaycastHit hit;
-        //Debug.Log(InvertYPlayer - (int)player.transform.position.z);
-        //Este if debe dar la posicion del jugador en la matriz para poder ser procesada
-
-        
-       // if (Physics.Raycast(Camera.main.ScreenPointToRay(player.transform.position), out hit, 0f, LayerMask.GetMask("MapaNivel")))
-       // {
-       //     mapPlayerPosX = (int)hit.point.x;
-        //    mapPlayerPosY = (int)hit.point.z;
-        //}
         if (player.transform.position.x <20 && player.transform.position.z < 20){
             mapPlayerPosX = (int)player.transform.position.x;
             mapPlayerPosY = (int)player.transform.position.z;
-            Debug.Log(mapPlayerPosX + mapPlayerPosY);
         }
        else {
             mapPlayerPosX = -1;
