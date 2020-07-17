@@ -3,9 +3,8 @@
 #include <json/json.h>
 #include <json/value.h>
 #include "../Server.h"
-class JsonHandler : public Server{
+class JsonHandler : public Server {
 public:
-    static bool handlingReceivedData(std::string DataOne, Json::Value DataTwo, Json::Value DataThree);
+    static bool handlingReceivedData(Json::Value DataOne, Json::Value DataTwo);
     static bool Deserialize(std::basic_string<char> streamOfJson);
 };
-
