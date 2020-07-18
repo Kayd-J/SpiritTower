@@ -13,6 +13,6 @@ void Serialize::SerializeMatrix(std::string MatrixMap[20][20]) {
 		}
 		json_object_array_add(jarray1, jarray2);
 	}
-	printf("The json object created: %sn", json_object_to_json_string(jarray1));
+	//printf("The json object created: %sn", json_object_to_json_string(jarray1));
 
 }
