@@ -14,7 +14,6 @@
 */
 using UnityEngine;
 using System.Collections;
-
 using System;
 using System.Text;
 using System.Net;
@@ -34,24 +33,16 @@ public class UDPSend : MonoBehaviour
     // "connection" things
     IPEndPoint remoteEndPoint;
     UdpClient client;
+    // receiving Thread
+    Thread receiveThread;
 
     // gui
     string strMessage = "";
 
+    // infos
+    public string lastReceivedUDPPacket = "";
+    public string allReceivedUDPPackets = ""; // clean up this from time to time!
 
-    // call it from shell (as program)
-    private static void Main()
-    {
-        UDPSend sendObj = new UDPSend();
-        sendObj.init();
-
-        // testing via console
-        // sendObj.inputFromConsole();
-
-        // as server sending endless
-        sendObj.sendEndless(" endless infos \n");
-
-    }
     // start from unity3d
     public void Start()
     {
@@ -66,6 +57,8 @@ public class UDPSend : MonoBehaviour
         style.alignment = TextAnchor.UpperLeft;
         GUI.Box(rectObj, "# UDPSend-Data\n127.0.0.1 " + port + " #\n"
                     + "shell> nc -lu 127.0.0.1  " + port + " \n"
+                    + "\nLast Packet: \n" + lastReceivedUDPPacket
+                    + "\n\nAll Messages: \n" + allReceivedUDPPackets
                 , style);
 
         // ------------------------
@@ -87,7 +80,6 @@ public class UDPSend : MonoBehaviour
         // define
         IP = "127.0.0.1";
         port = 54000;
-
         // ----------------------------
         // Senden
         // ----------------------------
@@ -97,37 +89,8 @@ public class UDPSend : MonoBehaviour
         // status
         print("Sending to " + IP + " : " + port);
         print("Testing: nc -lu " + IP + " : " + port);
-
     }
 
-    // inputFromConsole
-    private void inputFromConsole()
-    {
-        try
-        {
-            string text;
-            do
-            {
-                text = Console.ReadLine();
-
-                // Den Text zum Remote-Client senden.
-                if (text != "")
-                {
-
-                    // Daten mit der UTF8-Kodierung in das Binärformat kodieren.
-                    byte[] data = Encoding.UTF8.GetBytes(text);
-
-                    // Den Text zum Remote-Client senden.
-                    client.Send(data, data.Length, remoteEndPoint);
-                }
-            } while (text != "");
-        }
-        catch (Exception err)
-        {
-            print(err.ToString());
-        }
-
-    }
 
     // sendData
     private void sendString(string message)
@@ -142,7 +105,14 @@ public class UDPSend : MonoBehaviour
 
             // Den message zum Remote-Client senden.
             client.Send(data, data.Length, remoteEndPoint);
-            //}
+
+            receiveThread = new Thread(
+            new ThreadStart(ReceiveData));
+            receiveThread.IsBackground = true;
+            receiveThread.Start();
+
+
+
         }
         catch (Exception err)
         {
@@ -150,18 +120,36 @@ public class UDPSend : MonoBehaviour
         }
     }
 
-
-    // endless test
-    private void sendEndless(string testStr)
+    // receive thread
+    private void ReceiveData()
     {
-        do
+        while (true)
         {
-            sendString(testStr);
 
+            try
+            {
+                // Bytes empfangen.
+                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 54001);
+                byte[] dato = client.Receive(ref anyIP);
 
+                // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
+                string text = Encoding.UTF8.GetString(dato);
+
+                // Den abgerufenen Text anzeigen.
+                print(">> " + text);
+
+                // latest UDPpacket
+                lastReceivedUDPPacket = text;
+
+                // ....
+                allReceivedUDPPackets = allReceivedUDPPackets + text;
+
+            }
+            catch (Exception err)
+            {
+                print(err.ToString());
+            }
         }
-        while (true);
-
     }
 
 }
