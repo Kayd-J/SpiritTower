@@ -1,5 +1,6 @@
 #pragma once
 #include "network/ServerListener.h"
+#include "manager/Serialize.h"
 #include <string>
 #include <iterator>
 /**
@@ -16,11 +17,14 @@ public:
       * @brief crea lector de mensajes entrantes.
       */
     void run();
+    /**
+      * @brief lleva el mensaje a manejar.
+      */
     void onMessageReceived(std::string message);
+    /**
+      * @brief envia mensajes a socket especifico
+      */
     void sendMessage(std::string message);
-    void sendDisconnectMessage();
-    std::string CLOSING_CLIENT = "SERVERisCLOSING";
-    std::string SENDING_DATA = "DATADEFAULT";
     int  clientLength = sizeof(ClientSocket);
 protected:
     bool running = true;
