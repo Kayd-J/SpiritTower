@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    float JumpVel= 1f;
+    public float JumpVel;
     public Rigidbody rigidbody;
     float axisX;
     float axisY;

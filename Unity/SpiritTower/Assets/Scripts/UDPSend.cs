@@ -123,6 +123,7 @@ public class UDPSend : MonoBehaviour
     // receive thread
     private void ReceiveData()
     {
+
         while (true)
         {
 
@@ -132,6 +133,13 @@ public class UDPSend : MonoBehaviour
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 54001);
                 byte[] dato = client.Receive(ref anyIP);
 
+                int datos = 0;
+
+                for (int i =0 ; i<dato.Length ; i++) {
+                    datos++;
+                }
+                Debug.Log(datos);
+
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
                 string text = Encoding.UTF8.GetString(dato);
 
@@ -139,6 +147,7 @@ public class UDPSend : MonoBehaviour
                 print(">> " + text);
 
                 // latest UDPpacket
+                lastReceivedUDPPacket = "";
                 lastReceivedUDPPacket = text;
 
                 // ....
