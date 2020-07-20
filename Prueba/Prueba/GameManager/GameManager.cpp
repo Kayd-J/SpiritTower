@@ -1,6 +1,5 @@
 #include "GameManager.h"
 
-
 void run();
 
 GameManager* GameManager::instance = 0;
@@ -131,7 +130,7 @@ void GameManager::mapUpdate(){
 	int yp = player.posY;
 	map[xp][yp] = player.ids;
 	sendMap = Serialize::SerializeMatrix(map);
-	cout << sendMap << endl;
+	//cout << sendMap << endl;
 }
 
 void GameManager::returnBack(){
@@ -251,12 +250,160 @@ void GameManager::fillLevelList(){
 	}
 }
 
+LinkedList* GameManager::rangeAnalizer(Spectrum* spect){
+	LinkedList* result = new LinkedList();
+	int im = 0;
+	int pa = 0;
+	for (int i = 1; i <= spect->getRange(); i++) {
+		if (i % 2 == 0) {
+			pa += 1;
+		}
+		else {
+			im += 1;
+		}
+	}
+	analizeIm(result, im, spect->dir,spect);
+	analizePa(result,pa,spect->dir,spect);
+	return result;
+}
+
+void GameManager::analizeIm(LinkedList*& result, int impar, string dir, Spectrum* spect){
+	int x1, x2, y1, y2;
+	for (int i = 1; i <= impar; i++) {
+		if (dir == "N") {
+			x1 = spect->tempX - i;
+			y1 = spect->tempY + i;
+			if (x1 >0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				result->addNode(matrixLevel.findSquare(x1, y1));
+			}
+			x2 = spect->tempX - i;
+			y2 = spect->tempY - i;
+			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				result->addNode(matrixLevel.findSquare(x2, y2));
+			}
+		}
+		else if (dir == "S") {
+			x1 = spect->tempX + i;
+			y1 = spect->tempY + i;
+			if (x1 >0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				result->addNode(matrixLevel.findSquare(x1, y1));
+			}
+			x2 = spect->tempX + i;
+			y2 = spect->tempY - i;
+			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				result->addNode(matrixLevel.findSquare(x2, y2));
+			}
+		}
+		else if (dir == "W") {
+			x1 = spect->tempX + i;
+			y1 = spect->tempY - i;
+			if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				result->addNode(matrixLevel.findSquare(x1, y1));
+			}
+			x2 = spect->tempX - i;
+			y2 = spect->tempY - i;
+			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				result->addNode(matrixLevel.findSquare(x2, y2));
+			}
+		}
+		else {
+			x1 = spect->tempX + i;
+			y1 = spect->tempY + i;
+			if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				result->addNode(matrixLevel.findSquare(x1, y1));
+			}
+			x2 = spect->tempX - i;
+			y2 = spect->tempY + i;
+			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				result->addNode(matrixLevel.findSquare(x2, y2));
+			}
+		}
+	}
+}
+
+void GameManager::analizePa(LinkedList*& result, int par, string dir, Spectrum* spect){
+	int x1, x2, y1, y2;
+	for (int i = 0; i < par; i++) {
+		for (int j = i; j >= 0; j--) {
+			if (dir == "N") {
+				x1 = spect->tempX - 1 - i;
+				y1 = spect->tempY + j;
+				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+					result->addNode(matrixLevel.findSquare(x1, y1));
+				}
+				x2 = spect->tempX - 1 - i;
+				y2 = spect->tempY - j;
+				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+					result->addNode(matrixLevel.findSquare(x2, y2));
+				}
+			}
+			else if (dir == "S") {
+				x1 = spect->tempX + 1 + i;
+				y1 = spect->tempY + j;
+				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+					result->addNode(matrixLevel.findSquare(x1, y1));
+				}
+				x2 = spect->tempX + 1 + i;
+				y2 = spect->tempY - j;
+				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+					result->addNode(matrixLevel.findSquare(x2, y2));
+				}
+			}
+			else if (dir == "W") {
+				x1 = spect->tempX + j;
+				y1 = spect->tempY - 1 - i;
+				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+					result->addNode(matrixLevel.findSquare(x1, y1));
+				}
+				x2 = spect->tempX - j;
+				y2 = spect->tempY - 1 - i;
+				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+					result->addNode(matrixLevel.findSquare(x2, y2));
+				}
+				
+			}
+			else {
+				x1 = spect->tempX + j;
+				y1 = spect->tempY + 1 + i;
+				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+					result->addNode(matrixLevel.findSquare(x1, y1));
+				}
+				x2 = spect->tempX - j;
+				y2 = spect->tempY + 1 + i;
+				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+					result->addNode(matrixLevel.findSquare(x2, y2));
+				}
+			}
+		}
+	}
+}
 
 void run() {
 	GameManager* gmr = GameManager::getInstance();
 	while (gmr->inGame) {
 		gmr->mapUpdate();
-		gmr->gameServer.sendJSON(gmr->sendMap);
+		gmr->displayMap();
+		//gmr->gameServer.sendJSON(gmr->sendMap);
+
+
+		auto it = gmr->spectrumList.begin();
+		auto last = gmr->spectrumList.end();
+		for (it; it != last; ++it) {
+			LinkedList* list = new LinkedList();
+			list = gmr->rangeAnalizer(*it);
+			int size1 = list->getSize();
+			Node* temp = list->getHead();
+			for (int i = 0; i < size1; i++) {
+				gmr->map[temp->getSquare()->getRowNumb()][temp->getSquare()->getColNumb()] = (*it)->getId();
+				temp = temp->getNext();
+			}
+
+		}
+		cout << "--------------------------------------" << endl;
+		gmr->displayMap();
+		
+		break;
+		/*
 		gmr->displayMap();
 		if (gmr->walking == true) {
 			gmr->patrolling();
@@ -269,5 +416,6 @@ void run() {
 		}
 		cout << "----------------------------------------------" << endl;
 		this_thread::sleep_for(chrono::milliseconds(1000));
+		*/
 	}
 }

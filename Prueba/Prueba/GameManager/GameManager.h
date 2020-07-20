@@ -18,8 +18,9 @@ private:
 	static GameManager* instance;
 	GameManager();
 	Player player;
-	list<Spectrum*> spectrumList;
+	
 public:
+	list<Spectrum*> spectrumList;
 	GameServer gameServer;
 	bool chasingPlayer = true;
 	bool walking = false;
@@ -40,5 +41,8 @@ public:
 	void patrolling();
 	int level = 1;
 	void fillLevelList();
+	LinkedList* rangeAnalizer(Spectrum* spect);
+	void analizeIm(LinkedList* &result, int impar, string dir,Spectrum* spect);
+	void analizePa(LinkedList* &result, int pa, string dir, Spectrum* spect);
 };
 
