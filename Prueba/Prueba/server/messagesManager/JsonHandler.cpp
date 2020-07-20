@@ -1,6 +1,6 @@
 #include "JsonHandler.h"
 
-bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo) {
+bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Player* &player) {
 
     std::cout << "INFO RECEIVED " << std::endl;
     int health = DataOne["Health"].asInt();
@@ -10,6 +10,14 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo)
     int posX = DataOne["posX"].asInt();
     int posY = DataOne["posY"].asInt();
 
+    player->posX = posX;
+    player->posY = posY;
+    player->health = health;
+    player->score = score;
+    player->shield = shield;
+    player->sword = sword;
+
+
     std::cout << "This is the PLAYER STATUS -> " << std::endl;
     std::cout << "Can be used One by One :) " << std::endl;
     std::cout << "This is the Health-> " << health << std::endl;
@@ -18,17 +26,9 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo)
     std::cout << "This is the Sword-> " << sword << std::endl;
     std::cout << "This his PosX-> " << posX << std::endl;
     std::cout << "This his PosY-> " << posY << std::endl;
-
-    std::cout << "These are the ENEMIES " << std::endl;
-    for (int i = 0; i < DataTwo.size(); i++) {
-        std::cout << DataTwo[i] << std::endl;
-        for (int j = 0; j < DataTwo[i].getMemberNames().size(); j++) {
-            std::cout << DataTwo[i].getMemberNames()[j] << ": " << DataTwo[i][DataTwo[i].getMemberNames()[j]].asString() << std::endl;
-        }
-    }
     return true;
 }
-bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson) {
+bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson, Player* &player) {
     Json::Value root;
     std::string errors;
     Json::CharReaderBuilder builder;
@@ -44,7 +44,7 @@ bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson) {
         for (Json::Value::const_iterator i = root.begin(); i != root.end(); i++) {
             auto DataOne = root["Player"];
             auto DataTwo = root["Enemies"];
-            if (handlingReceivedData(DataOne, DataTwo)) {
+            if (handlingReceivedData(DataOne, DataTwo,player)) {
                 return true;
             }
             else {
