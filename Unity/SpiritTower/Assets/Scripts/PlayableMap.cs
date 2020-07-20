@@ -7,6 +7,7 @@ using System.Net.NetworkInformation;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
+
 public class PlayableMap : MonoBehaviour
 {
     private const float TileSize = 1.0f;
@@ -20,17 +21,91 @@ public class PlayableMap : MonoBehaviour
 
     private string[,] GameMatrix;
 
+    private Wrapper information;
 
-    void Awake() { 
 
-        //Aqui es donde debo meter la matrix
-    
+    void Awake() {
+
+        Player jugador = new Player();
+
+        Enemies[] bruh = new Enemies[2];
+        bruh[0] = new Enemies();
+        bruh[1] = new Enemies();
+
+
+        string playerToJason = JsonHelper.ToJson(jugador, bruh, true);
+        //Debug.Log(playerToJason);
+
+        //Debug.Log("DesSerializando...");
+
+        //UDPSend.sendString(playerToJason);
+
+        
+
+        //while (UDPSend.messageSv==null) {
+            //print("esperando respuesta");
+        //}
+
+        //information = JsonHelper.FromJson(UDPSend.messageSv);
+
+
+
+        
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+
+        //Player actualPlayer = information.Player;
+        //Enemies[] deserializados = information.Enemies;
+
+        // Debug.Log(actualPlayer.Health);
+        //Debug.Log(actualPlayer.Score);
+        //Debug.Log(actualPlayer.Shield);
+
+        //for (int i = 0; i < deserializados.Length; i++)
+        //{
+        //    Debug.Log(deserializados[i].ID);
+        //}
+    }
+
+    void conecction() {
+
+        //Aqui es donde debo meter la matrix
+
+        Player jugador = new Player();
+
+        Enemies[] bruh = new Enemies[2];
+        bruh[0] = new Enemies();
+        bruh[1] = new Enemies();
+
+
+        string playerToJason = JsonHelper.ToJson(jugador, bruh, true);
+        Debug.Log(playerToJason);
+
+
+        //UDPSend.sendString(playerToJason + "\n");
+
+        Debug.Log("DesSerializando...");
+
+
+        //UDPSend.sendString(playerToJason);
+
+        //Wrapper informacion = JsonHelper.FromJson(UDPSend.messageSv);
+
+
+
+        //Player actualPlayer = informacion.Player;
+
+        //Enemies[] deserializados = informacion.Enemies;
+
+        //Debug.Log(actualPlayer.Health);
+        //Debug.Log(actualPlayer.Score);
+        //Debug.Log(actualPlayer.Shield);
+
+        //for (int i = 0; i < deserializados.Length; i++)
+        //{
+        //    Debug.Log(deserializados[i].ID);
+        //}
     }
 
     // Update is called once per frame

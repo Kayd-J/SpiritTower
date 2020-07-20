@@ -1,18 +1,4 @@
-﻿/*
- 
-    -----------------------
-    UDP-Send
-    -----------------------
-    // [url]http://msdn.microsoft.com/de-de/library/bb979228.aspx#ID0E3BAC[/url]
-   
-    // > gesendetes unter
-    // 127.0.0.1 : 8050 empfangen
-   
-    // nc -lu 127.0.0.1 8050
- 
-        // todo: shutdown thread at the end
-*/
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System;
 using System.Text;
@@ -24,7 +10,6 @@ public class UDPSend : MonoBehaviour
 {
     private static int localPort;
     [SerializeField] Rigidbody player;
-
 
     // prefs
     private string IP;  // define in init
@@ -55,11 +40,6 @@ public class UDPSend : MonoBehaviour
         Rect rectObj = new Rect(40, 380, 200, 400);
         GUIStyle style = new GUIStyle();
         style.alignment = TextAnchor.UpperLeft;
-        GUI.Box(rectObj, "# UDPSend-Data\n127.0.0.1 " + port + " #\n"
-                    + "shell> nc -lu 127.0.0.1  " + port + " \n"
-                    + "\nLast Packet: \n" + lastReceivedUDPPacket
-                    + "\n\nAll Messages: \n" + allReceivedUDPPackets
-                , style);
 
         // ------------------------
         // send it
@@ -67,16 +47,13 @@ public class UDPSend : MonoBehaviour
         strMessage = GUI.TextField(new Rect(40, 420, 140, 20), strMessage);
         if (GUI.Button(new Rect(190, 420, 40, 20), "send"))
         {
-            sendString(strMessage + "\n");
+            sendString("{\"Matrix\":\"[[0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1], [0, 1, 0, 1]]\",\"Player\":{\"Health\":100,\"Score\":10,\"Shield\":false,\"Sword\":true},\"Enemies\":{\"A\":{\"Alert\":true,\"Range\":2},\"B\":{\"Alert\":false,\"Range\":4}}}");
         }
     }
 
     // init
     public void init()
     {
-        // Endpunkt definieren, von dem die Nachrichten gesendet werden.
-        print("UDPSend.init()");
-
         // define
         IP = "127.0.0.1";
         port = 54000;
@@ -85,21 +62,15 @@ public class UDPSend : MonoBehaviour
         // ----------------------------
         remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), port);
         client = new UdpClient();
-
-        // status
-        print("Sending to " + IP + " : " + port);
-        print("Testing: nc -lu " + IP + " : " + port);
     }
 
 
     // sendData
     private void sendString(string message)
     {
+        print(message);
         try
         {
-            //if (message != "")
-            //{
-
             // Daten mit der UTF8-Kodierung in das Binärformat kodieren.
             byte[] data = Encoding.UTF8.GetBytes(message);
 
@@ -111,8 +82,6 @@ public class UDPSend : MonoBehaviour
             receiveThread.IsBackground = true;
             receiveThread.Start();
 
-
-
         }
         catch (Exception err)
         {
@@ -123,35 +92,19 @@ public class UDPSend : MonoBehaviour
     // receive thread
     private void ReceiveData()
     {
-
         while (true)
         {
-
             try
             {
                 // Bytes empfangen.
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 54001);
                 byte[] dato = client.Receive(ref anyIP);
 
-                int datos = 0;
-
-                for (int i =0 ; i<dato.Length ; i++) {
-                    datos++;
-                }
-                Debug.Log(datos);
-
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
                 string text = Encoding.UTF8.GetString(dato);
 
                 // Den abgerufenen Text anzeigen.
                 print(">> " + text);
-
-                // latest UDPpacket
-                lastReceivedUDPPacket = "";
-                lastReceivedUDPPacket = text;
-
-                // ....
-                allReceivedUDPPackets = allReceivedUDPPackets + text;
 
             }
             catch (Exception err)
