@@ -7,5 +7,9 @@ public:
 	int posY=1;
 	string ids = "P";
 	//Player();
+	int health;
+	int score;
+	bool shield;
+	bool sword;
 };
 
