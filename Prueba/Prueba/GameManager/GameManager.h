@@ -9,6 +9,7 @@
 #include "../Algorithms/BackTracking.h"
 #include "../server/messagesManager/Serialize.h"
 #include "../server/messagesManager/GameServer.h"
+#include "../Enemies/breeder.h"
 
 
 using namespace std;
@@ -17,9 +18,10 @@ class GameManager{
 private:
 	static GameManager* instance;
 	GameManager();
-	Player player;
+	
 	
 public:
+	Player* player;
 	list<Spectrum*> spectrumList;
 	GameServer gameServer;
 	bool chasingPlayer = true;
@@ -44,5 +46,6 @@ public:
 	LinkedList* rangeAnalizer(Spectrum* spect);
 	void analizeIm(LinkedList* &result, int impar, string dir,Spectrum* spect);
 	void analizePa(LinkedList* &result, int pa, string dir, Spectrum* spect);
+	breeder* breed;
 };
 

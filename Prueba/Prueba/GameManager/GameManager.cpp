@@ -5,6 +5,9 @@ void run();
 GameManager* GameManager::instance = 0;
 
 GameManager::GameManager() {
+	player = new Player();
+	breed = new breeder();
+	breed->newGeneration();
 	matrixLevel.createMatrix(20,20);
 	fillMap(matrixLevel);
 	fillSpectrums();
@@ -43,7 +46,7 @@ void GameManager::fillSpectrums(){
 	string ids = "ABC";
 	for (int i = 0; i < 3; i++) {
 		Spectrum* temp = new Spectrum();
-		temp->setId(ids.substr(i,1));
+		*temp = breed->getBestOne(i);
 		spectrumList.push_back(temp);
 	}
 	auto it = spectrumList.begin();
@@ -99,7 +102,7 @@ void GameManager::chasing(){
 			int x = (*it)->tempX;
 			int y = (*it)->tempY;
 			Square* start = matrixLevel.findSquare(x, y);
-			Square* end = matrixLevel.findSquare(player.posX, player.posY);
+			Square* end = matrixLevel.findSquare(player->posX, player->posY);
 			if (start == end) {
 				(*it)->catchPlayer = true;
 			}
@@ -126,9 +129,9 @@ void GameManager::mapUpdate(){
 		int y = (*it)->tempY;
 		map[x][y] = (*it)->getId();
 	}
-	int xp = player.posX;
-	int yp = player.posY;
-	map[xp][yp] = player.ids;
+	int xp = player->posX;
+	int yp = player->posY;
+	map[xp][yp] = player->ids;
 	sendMap = Serialize::SerializeMatrix(map);
 	//cout << sendMap << endl;
 }
@@ -401,7 +404,14 @@ void run() {
 		}
 		cout << "--------------------------------------" << endl;
 		gmr->displayMap();
-		
+		int a = 0;
+		while (a < 10) {
+			cout << gmr->player->posX << endl;
+			this_thread::sleep_for(chrono::milliseconds(1000));
+			a++;
+		}
+		gmr->mapUpdate();
+		gmr->displayMap();
 		break;
 		/*
 		gmr->displayMap();
