@@ -1,6 +1,5 @@
-﻿  breeder.cpp
-C:\Users\andre\Documents\datos_2\SpiritTower\SpiritTower\SpiritTower\SpiritTower\breeder.cpp(34,23): warning C4018: '<': no coinciden signed/unsigned
-C:\Users\andre\Documents\datos_2\SpiritTower\SpiritTower\SpiritTower\SpiritTower\breeder.cpp(43,15): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
-C:\Users\andre\Documents\datos_2\SpiritTower\SpiritTower\SpiritTower\SpiritTower\breeder.cpp(149,27): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
-C:\Users\andre\Documents\datos_2\SpiritTower\SpiritTower\SpiritTower\SpiritTower\breeder.cpp(153,23): warning C4244: '=': conversión de 'double' a 'int'; posible pérdida de datos
+﻿  Using triplet "x86-windows" from "C:\Users\andre\vcpkg\installed\x86-windows\"
+  Spectrum.cpp
+  SpiritTower.cpp
+  Generando código...
   SpiritTower.vcxproj -> C:\Users\andre\Documents\datos_2\SpiritTower\SpiritTower\SpiritTower\SpiritTower\Debug\SpiritTower.exe

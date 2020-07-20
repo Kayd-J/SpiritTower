@@ -13,6 +13,7 @@ private:
     int range;
     int extra;
     string id;
+    string idGen;
     int fitness;
 
 public:
@@ -38,7 +39,11 @@ public:
 
     string getId() const;
 
-    void setId(int id_);
+    void setId(string id_);
+
+    string getIdGen() const;
+
+    void setIdGen(string idgen_);
 
     int getFitness() const;
 

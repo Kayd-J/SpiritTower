@@ -11,23 +11,76 @@ using namespace std;
 
 int main()
 {
+    /*
+    string u = "110011010110";
+
+    int randGen2 = 1 + rand() % 6;
+    cout << randGen2 << endl;
+    string chain;
+    string change = u.substr(randGen2, 3);
+    string subString1 = u.substr(0, randGen2);
+    string subString2 = u.substr(randGen2 + 3, u.size());
+    for (int i = 0; i < change.size(); i++) {
+        if (change.substr(i, 1) == "1") {
+            chain += "0";
+        }
+        else {
+            chain += "1";
+        }
+    }
+    cout << change << endl;
+    cout << subString1 << endl;
+    cout << chain << endl;
+    cout << subString2 << endl;
+    cout << subString1 + chain + subString2 << endl;;
+    */
     
     vector<Spectrum> especs;
     breeder* breeder1 = new breeder();
 
-    string u = to_string(10);
+    breeder1->displayGeneration(0);
+
+    breeder1->newGeneration();
+    breeder1->newGeneration();
+    breeder1->newGeneration();
+    //breeder1->newGeneration();
+
+    breeder1->displayGeneration(0);
+
+    cout<<"El mejor de la gen A es: " <<breeder1->getBestOne(0).getId()<<endl;
+
+    
+
+    //string u = "1111100000";
     /**
     for (int i = 0; i < 4; ++i) {
         int ran = rand() % 2;
         cout << ran << endl;
     }
     **/
-
-    especs = breeder1->firstGeneration();
-    especs = breeder1->newGeneration(especs);
-    cout << especs.at(2).getExtra() << endl;
     
+    //especs = breeder1->firstGeneration();
+   // especs = breeder1->newGeneration(especs);
+    //cout << especs.at(2).getExtra() << endl;
 
+
+
+    /*
+    int randGen1 = 1 + rand() % 9;
+    string subString1;
+    string subString2;
+    cout << randGen1 << endl;
+    string change = u.substr(randGen1, 1);
+    cout << change << endl;
+    subString1 = u.substr(0, randGen1-1);
+    subString2 = u.substr(randGen1, u.size());
+    if (change == "1") {
+        cout << subString1 + "0" + subString2 << endl;
+    }
+    else {
+        cout << subString1 + "1" + subString2 << endl;
+    }
+    */
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar

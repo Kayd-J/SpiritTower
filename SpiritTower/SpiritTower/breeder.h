@@ -12,7 +12,7 @@ class breeder
 
 private:
 
-    int generation = 1;
+    vector<vector<Spectrum>> generations;
 
     vector<Spectrum> genA;
     vector<Spectrum> genB;
@@ -42,9 +42,13 @@ public:
 
     breeder();
 
-    int getGeneration();
+    vector<Spectrum> getGeneration(int idx);
 
-    vector<Spectrum> newGeneration(vector<Spectrum> gen);
-    vector<Spectrum> firstGeneration();
+    void newGeneration();
+    void firstGeneration();
+    void displayGeneration(int idx);
+    Spectrum getBestOne(int idx);
+    void setInTen();
+    void pullWorse(int idx);
 };
 
