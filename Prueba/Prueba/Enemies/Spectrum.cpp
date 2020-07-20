@@ -44,9 +44,8 @@ void Spectrum::setExtra(int extra_)
 	extra = extra_;
 }
 
-string Spectrum::getId() const
-{
-	return id;
+string Spectrum::getId() const{
+	return idGen.substr(0, 1);
 }
 
 void Spectrum::setId(string id_)
@@ -61,5 +60,19 @@ int Spectrum::getFitness() const
 
 void Spectrum::setFitness()
 {
-	fitness = srch_speed + chase_speed + range + extra;
+	fitness = srch_speed + chase_speed + range;
+	if ((srch_speed == 0) || (chase_speed == 0) || (range == 0)) {
+		fitness -= 2;
+	}
 }
+
+string Spectrum::getIdGen() const
+{
+	return idGen;
+}
+
+void Spectrum::setIdGen(string idgen_)
+{
+	idGen = idgen_;
+}
+

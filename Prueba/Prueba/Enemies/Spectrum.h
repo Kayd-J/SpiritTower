@@ -10,10 +10,11 @@ class Spectrum {
 private:
     int srch_speed;
     int chase_speed;
-    int range = 7;
+    int range;
     int extra;
     string id;
     int fitness;
+    string idGen;
     
 
 public:
@@ -46,6 +47,10 @@ public:
     int getFitness() const;
 
     void setFitness();
+    
+    string getIdGen() const;
+
+    void setIdGen(string idgen_);
 
     int posX;
     int posY;
