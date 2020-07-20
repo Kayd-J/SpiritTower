@@ -1,2 +1,0 @@
-# SpiritTower
-Spirit tower es un juego de aventura que consiste en investigar un templo lleno de tesoros, donde patrullan espectros, los cuales,al encontrar al jugador, lo perseguirán para evitar que avance a través de los niveles del templo. El juego consta de dos partes, un cliente que se va a desarrollar para Windows, MacOS, Linux, WebGL, Android o iOS y es la que va a interactuar propiamente con el jugador y un servidor que va a contener toda la información del juego.
