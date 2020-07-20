@@ -10,7 +10,7 @@ class Spectrum {
 private:
     int srch_speed;
     int chase_speed;
-    int range;
+    int range = 7;
     int extra;
     string id;
     int fitness;
@@ -56,5 +56,7 @@ public:
     LinkedList backTrackPath;
 
     LinkedList* patrollArea;
+
+    string dir = "N";
 };
 
