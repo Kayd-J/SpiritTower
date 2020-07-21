@@ -11,6 +11,11 @@ public class Movement : MonoBehaviour
     float axisX;
     float axisY;
     Vector3 axis;
+
+    public static Player informacion =new Player();
+
+    //Player information
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +31,7 @@ public class Movement : MonoBehaviour
 
         if (Input.GetButtonDown("Jump")) {
             rigidbody.velocity = new Vector3(axisX, JumpVel, axisY);
+
         }
         
     }

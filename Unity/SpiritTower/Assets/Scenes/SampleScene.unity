@@ -1285,7 +1285,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  port: 0
   lastReceivedUDPPacket: 
   allReceivedUDPPackets: 
 --- !u!4 &483209192
@@ -2063,7 +2062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1086691931, guid: 6f2a8fc34eeecf94e98932549579cc50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1086691931, guid: 6f2a8fc34eeecf94e98932549579cc50, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2071,7 +2070,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1086691931, guid: 6f2a8fc34eeecf94e98932549579cc50, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1086691931, guid: 6f2a8fc34eeecf94e98932549579cc50, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2166,7 +2165,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -2285,6 +2284,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1778295279}
+  jugador:
+    Health: 100
+    Score: 10
+    posX: 2
+    posY: 3
+    Shield: 0
+    Sword: 1
 --- !u!1 &1778295274 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1086691929, guid: 6f2a8fc34eeecf94e98932549579cc50,
@@ -2340,7 +2346,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!1 &1926003734
 GameObject:
   m_ObjectHideFlags: 0
