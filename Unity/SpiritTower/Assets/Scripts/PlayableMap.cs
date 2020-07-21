@@ -29,40 +29,53 @@ public class PlayableMap : MonoBehaviour
         bruh[0] = new Enemies();
         bruh[1] = new Enemies();
 
+
         string playerToJason = JsonHelper.ToJson(jugador, bruh, true);
         print(playerToJason);
         UDPSend.sendString(playerToJason);
 
         //Recibo mensajes______________
 
-        //if (UDPSend.messageSv !=null){ 
-        //information = JsonHelper.FromJson(UDPSend.messageSv);
-        //Player actualPlayer = informacion.Player;
-        //Enemies[] deserializados = informacion.Enemies;
-        //}
-
-
-        //Debug.Log(actualPlayer.Health);
-        //Debug.Log(actualPlayer.Score);
-        //Debug.Log(actualPlayer.Shield);
-        //for (int i = 0; i < deserializados.Length; i++)
+        //if (UDPSend.messageSV != null)
         //{
-        //    Debug.Log(deserializados[i].ID);
+        //    print("me llego la data");
         //}
+
+
+
+            //if (UDPSend.messageSv !=null){ 
+            //information = JsonHelper.FromJson(UDPSend.messageSv);
+            //Player actualPlayer = informacion.Player;
+            //Enemies[] deserializados = informacion.Enemies;
+
+
+            //}
+
+
+            //Debug.Log(actualPlayer.Health);
+            //Debug.Log(actualPlayer.Score);
+            //Debug.Log(actualPlayer.Shield);
+            //for (int i = 0; i < deserializados.Length; i++)
+            //{
+            //    Debug.Log(deserializados[i].ID);
+            //}
+
+        //
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerPos();
         DrawBoard();
-
     }
 
     void FixedUpdate() {
+        PlayerPos();
         jugador.posX = mapPlayerPosX;
         jugador.posY = InvertYPlayer - mapPlayerPosY;
+        print(jugador.posY);
         conection();
+
 
     }
 

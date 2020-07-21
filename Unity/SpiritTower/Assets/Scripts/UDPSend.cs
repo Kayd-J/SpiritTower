@@ -22,7 +22,7 @@ public class UDPSend : MonoBehaviour
     static Thread receiveThread = new Thread(new ThreadStart(ReceiveData));
 
     // gui
-    string strMessage = "";
+    public static string messageSV;
 
     // infos
     public string lastReceivedUDPPacket = "";
@@ -58,7 +58,7 @@ public class UDPSend : MonoBehaviour
 
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 54001);
                 byte[] dato = client.Receive(ref anyIP);
-                string text = Encoding.UTF8.GetString(dato);
+                messageSV = Encoding.UTF8.GetString(dato);
                 // lo que recibe del servidor
                 //print(">> " + text);
             }

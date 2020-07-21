@@ -29,3 +29,23 @@ public class Trampas
     public int posY;
 }
 
+[Serializable]
+public class Cofres
+{
+    public bool DEATH = false;
+    public int posX;
+    public int posY;
+}
+
+[Serializable]
+public class Jarrones
+{
+    public bool DEATH = false;
+    public int posX;
+    public int posY;
+}
+
+public class movable
+{}
+
+

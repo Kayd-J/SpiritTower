@@ -13,6 +13,10 @@ public class Spawner : MonoBehaviour
     [SerializeField] GameObject EGris;
     [SerializeField] GameObject EAzul;
     [SerializeField] GameObject ERojo;
+    private Enemies[] enemiesInstanciados;
+    private Cofres[] cofresInstanciados;
+    private Jarrones[] jarronesInstanciados;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,4 +29,15 @@ public class Spawner : MonoBehaviour
     {
         
     }
+
+    public static void CheckOrMove(Enemies[] enemies,Cofres[] cofres, Jarrones[] jarrones) {
+
+        for (int i = 0; i < enemies.Length; i++){
+            //Debug.Log(deserializados[i].ID);
+        }
+
+
+    }
+
+
 }
