@@ -113,3 +113,8 @@ Square* LinkedList::getRandomNode() {
 	return temp->getSquare();
 
 }
+
+void LinkedList::setHead(Node* head)
+{
+	this->head = head;
+}

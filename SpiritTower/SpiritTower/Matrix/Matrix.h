@@ -15,7 +15,7 @@ private:
 	int rows;
 	int cols;
 public:
-	void createMatrix(int rows, int cols, int file);
+	void createMatrix(int rows, int cols);
 	Matrix();
 	void display();
 	int getSize();

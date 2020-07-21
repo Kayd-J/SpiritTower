@@ -20,5 +20,6 @@ public:
 	Node* getTail();
 	bool isInList(Square* square);
 	Square* getRandomNode();
+	void setHead(Node* head);
 };
 

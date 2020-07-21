@@ -26,7 +26,7 @@ public:
 	Player* player;
 	GameServer gameServer;
 	bool chasingPlayer = false;
-	bool walking = false;
+	bool walking = true;
 	static GameManager* getInstance();
 	Matrix matrixLevel;
 	string map[20][20];
@@ -64,6 +64,9 @@ public:
 	void nextLevel();
 	void levelsFiller();
 	bool searchingPlayer(LinkedList* rangeArea);
+	int cycles = 0;
+	void moveRat();
+	vector<string> spectrumColors;
 };
 
 

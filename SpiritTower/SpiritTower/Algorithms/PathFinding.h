@@ -11,5 +11,3 @@ public:
 	int heuristic(Square* start, Square* end);
 	bool includes(list<Square*> list, Square* square);
 };
-
-

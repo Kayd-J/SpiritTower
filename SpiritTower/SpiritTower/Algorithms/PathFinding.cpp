@@ -29,7 +29,7 @@ LinkedList PathFinding::searchPath(Matrix mat, Square* start, Square* end) {
 					tempFather = tempFather->getFather();
 					pathList.addTop(tempFather);
 				}
-				cout << "Camino Encontrado" << endl;
+				//cout << "Camino Encontrado" << endl;
 				finished = true;
 			}
 
@@ -69,9 +69,14 @@ LinkedList PathFinding::searchPath(Matrix mat, Square* start, Square* end) {
 		else {
 			cout << "No hay camino posible" << endl;
 			finished = true;
+			pathList.addNode(start);
+			return pathList;
 		}
 	}
 	mat.resetMat();
+	Node* temp = pathList.getHead();
+	temp = temp->getNext();
+	pathList.setHead(temp);
 	return pathList;
 }
 

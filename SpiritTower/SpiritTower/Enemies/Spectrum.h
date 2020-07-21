@@ -63,5 +63,8 @@ public:
     LinkedList* patrollArea;
 
     string dir = "N";
-};
 
+    int movimientos = 0;
+
+    string color;
+};

@@ -7,8 +7,7 @@ Matrix::Matrix() {
 }
 
 
-void Matrix::createMatrix(int rows, int cols, int file) {
-	srand(time(NULL));
+void Matrix::createMatrix(int rows, int cols) {
 	this->cols = cols;
 	this->rows = rows;
 	Square* temp2 = new Square();
@@ -70,7 +69,7 @@ void Matrix::createMatrix(int rows, int cols, int file) {
 		temp2 = temp2->getNexRow();
 	}
 	this->tail = temp2;
-	fillMat(file);
+	//fillMat(file);
 	addNeighbors();
 }
 

@@ -63,7 +63,7 @@ void Spectrum::setFitness()
 {
 	fitness = srch_speed + chase_speed + range;
 	if ((srch_speed == 0) || (chase_speed == 0) || (range == 0)) {
-		fitness -= 2;
+		fitness -= 6;
 	}
 }
 

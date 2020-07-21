@@ -1,5 +1,7 @@
 ﻿  Using triplet "x86-windows" from "C:\vcpkg\installed\x86-windows\"
   BackTracking.cpp
+  PathFinding.cpp
+  Spectrum.cpp
   breeder.cpp
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(34,27): warning C4018: '<': signed/unsigned mismatch
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(45,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
@@ -10,27 +12,26 @@ C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\En
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(220,27): warning C4018: '<': signed/unsigned mismatch
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(260,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(264,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  ChuChu.cpp
-  EnemigoSimple.cpp
   GameManager.cpp
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(122,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(127,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(132,20): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-  ServerListener.cpp
-  GameServer.cpp
-  JsonHandler.cpp
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(128,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(133,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(138,20): warning C4018: '<': signed/unsigned mismatch
   LinkedList.cpp
   Matrix.cpp
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Matrix\Matrix.cpp(11,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  PathFinding.cpp
-  OjoEspectral.cpp
-  RatonSimple.cpp
-  Spectrum.cpp
-  Node.cpp
-  Square.cpp
-  Player.cpp
-  Serialize.cpp
+  main.cpp
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\main.cpp(13,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Server.cpp
   Generating Code...
+  LINK : C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\SpiritTower.exe not found or not built by the last incremental link; performing full link
+Serialize.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'Serialize.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+Player.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'Player.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+Square.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'Square.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+Node.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'Node.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+RatonSimple.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'RatonSimple.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+OjoEspectral.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'OjoEspectral.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+JsonHandler.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'JsonHandler.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+GameServer.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'GameServer.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+ServerListener.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'ServerListener.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+EnemigoSimple.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'EnemigoSimple.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
+ChuChu.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'ChuChu.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
   SpiritTower.vcxproj -> C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\SpiritTower.exe

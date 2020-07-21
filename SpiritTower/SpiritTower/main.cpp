@@ -10,6 +10,7 @@ using namespace std;
 
 int main() {
 
+	srand(time(NULL));
 	Server server;
 	if (server.init() != 0) {
 		server.run();

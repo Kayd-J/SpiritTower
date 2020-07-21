@@ -7,6 +7,7 @@ GameManager* GameManager::instance = 0;
 GameManager::GameManager() {
 	player = new Player();
 	breed = new breeder();
+	matrixLevel.createMatrix(20, 20);
 	nextLevel();
 	cout << "-------------------------------------------" << endl;
 	inGame = true;
@@ -48,6 +49,7 @@ void GameManager::fillSpectrums() {
 		temp->posY = spectrumPositions.at(level - 1).at(i)->getColNumb();
 		temp->tempX = spectrumPositions.at(level - 1).at(i)->getRowNumb();
 		temp->tempY = spectrumPositions.at(level - 1).at(i)->getColNumb();
+		temp->color = spectrumColors.at(level - 1).substr(i, 1);
 
 		Square* sA1 = new Square();
 		sA1->setRowNumb(spectrumPositions.at(level - 1).at(i)->getRowNumb());
@@ -88,20 +90,24 @@ void GameManager::chasing() {
 	if (everybodyFindPlayer == 1) {
 		auto it = spectrumList.begin();
 		auto last = spectrumList.end();
-		for (it; it != last; ++it) {
-			int x = (*it)->tempX;
-			int y = (*it)->tempY;
-			Square* start = matrixLevel.findSquare(x, y);
-			Square* end = matrixLevel.findSquare(player->posX, player->posY);
-			if (start == end) {
-				(*it)->catchPlayer = true;
-			}
-			else if ((*it)->catchPlayer == false) {
-				LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
-				(*it)->tempY = tempList.getHead()->getNext()->getSquare()->getColNumb();
-				(*it)->tempX = tempList.getHead()->getNext()->getSquare()->getRowNumb();
-				cout << (*it)->getId() << endl;
-				tempList.display();
+		if (cycles % ((8 - (*it)->getSrch_speed())) == 0) {
+			for (it; it != last; ++it) {
+				int x = (*it)->tempX;
+				int y = (*it)->tempY;
+				Square* start = matrixLevel.findSquare(x, y);
+				Square* end = matrixLevel.findSquare(player->posX, player->posY);
+				if (start == end) {
+					(*it)->catchPlayer = true;
+				}
+				else if ((*it)->catchPlayer == false) {
+					LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
+					//(*it)->tempY = tempList.getHead()->getNext()->getSquare()->getColNumb();
+					//(*it)->tempX = tempList.getHead()->getNext()->getSquare()->getRowNumb();
+					(*it)->tempY = tempList.getHead()->getSquare()->getColNumb();
+					(*it)->tempX = tempList.getHead()->getSquare()->getRowNumb();
+					cout << (*it)->getId() << endl;
+					tempList.display();
+				}
 			}
 		}
 	}
@@ -192,29 +198,34 @@ void GameManager::patrolling() {
 			chasingPlayer = true;
 			break;
 		}
-		int initialX = (*it)->tempX;
-		int initialY = (*it)->tempY;
+		if (cycles % ((8 - (*it)->getSrch_speed())) == 0) {
+			(*it)->movimientos++;
+			int initialX = (*it)->tempX;
+			int initialY = (*it)->tempY;
 
-		int endX = (*it)->patrollArea->getTail()->getSquare()->getRowNumb();
-		int endY = (*it)->patrollArea->getTail()->getSquare()->getColNumb();
+			int endX = (*it)->patrollArea->getTail()->getSquare()->getRowNumb();
+			int endY = (*it)->patrollArea->getTail()->getSquare()->getColNumb();
 
-		Square* start = matrixLevel.findSquare(initialX, initialY);
-		Square* end = matrixLevel.findSquare(endX, endY);
+			Square* start = matrixLevel.findSquare(initialX, initialY);
+			Square* end = matrixLevel.findSquare(endX, endY);
 
-		if (start != end) {
-			LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
-			(*it)->tempY = tempList.getHead()->getNext()->getSquare()->getColNumb();
-			(*it)->tempX = tempList.getHead()->getNext()->getSquare()->getRowNumb();
-			//tempList.display();
-			cout << "PATRULLANDO" << endl;
-		}
-		else {
-			int tempX = (*it)->patrollArea->getHead()->getSquare()->getRowNumb();
-			int tempY = (*it)->patrollArea->getHead()->getSquare()->getColNumb();
-			(*it)->patrollArea->getHead()->getSquare()->setRowNumb(endX);
-			(*it)->patrollArea->getHead()->getSquare()->setColNumb(endY);
-			(*it)->patrollArea->getTail()->getSquare()->setRowNumb(tempX);
-			(*it)->patrollArea->getTail()->getSquare()->setColNumb(tempY);
+			if (start != end) {
+				LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
+				//(*it)->tempY = tempList.getHead()->getNext()->getSquare()->getColNumb();
+				//(*it)->tempX = tempList.getHead()->getNext()->getSquare()->getRowNumb();
+				(*it)->tempY = tempList.getHead()->getSquare()->getColNumb();
+				(*it)->tempX = tempList.getHead()->getSquare()->getRowNumb();
+				//tempList.display();
+				//cout << "PATRULLANDO" << endl;
+			}
+			else {
+				int tempX = (*it)->patrollArea->getHead()->getSquare()->getRowNumb();
+				int tempY = (*it)->patrollArea->getHead()->getSquare()->getColNumb();
+				(*it)->patrollArea->getHead()->getSquare()->setRowNumb(endX);
+				(*it)->patrollArea->getHead()->getSquare()->setColNumb(endY);
+				(*it)->patrollArea->getTail()->getSquare()->setRowNumb(tempX);
+				(*it)->patrollArea->getTail()->getSquare()->setColNumb(tempY);
+			}
 		}
 	}
 }
@@ -378,7 +389,6 @@ void GameManager::fillEnemies() {
 
 void run() {
 	GameManager* gmr = GameManager::getInstance();
-	//gmr->walking = true;
 	while (gmr->inGame) {
 		gmr->mapUpdate();
 		gmr->displayMap();
@@ -411,8 +421,22 @@ void run() {
 		*/
 
 		//gmr->displayMap();
+		cout << gmr->player->posX << "--" << gmr->player->posY << endl;
+
+		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 2) {
+			gmr->chasingPlayer = false;
+			cout << "ZONA SEGURA" << endl;
+		}
+		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 6) {
+			gmr->nextLevel();
+			cout << "CAMBIE DE NIVEL" << endl;
+			gmr->mapUpdate();
+			gmr->displayMap();
+			break;
+		}
 		if (gmr->walking == true) {
 			gmr->patrolling();
+			cout << "PATRULLANDO" << endl;
 		}
 		else if (gmr->chasingPlayer == true) {
 			gmr->chasing();
@@ -420,14 +444,20 @@ void run() {
 		}
 		else if (gmr->chasingPlayer == false && gmr->walking == false) {
 			gmr->returnBack();
+			cout << "REGRESANDO" << endl;
 		}
 		cout << "----------------------------------------------" << endl;
-		this_thread::sleep_for(chrono::milliseconds(1000));
-
+		/*
+		gmr->cycles++;
+		cout << gmr->cycles << endl;
+		this_thread::sleep_for(chrono::milliseconds(10));
+		int size = gmr->spectrumList.size();
+		for (int i = 0; i < size;i++) {
+			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << endl;
+		}
+		*/
 	}
 }
-
-
 
 void GameManager::nextLevel() {
 	level++;
@@ -438,7 +468,7 @@ void GameManager::nextLevel() {
 	if (level != 1) {
 		breed->newGeneration();
 	}
-	matrixLevel.createMatrix(20, 20, level);
+	matrixLevel.fillMat(level);
 	fillMap(matrixLevel);
 	if (level == 1) {
 		levelsFiller();
@@ -730,10 +760,17 @@ void GameManager::levelsFiller() {
 	spectrumVect8.push_back(spectrum24);
 	spectrumFinalPosition.push_back(spectrumVect8);
 
+
+	//Spectrum colors list
+
+	spectrumColors.push_back("ggg");
+	spectrumColors.push_back("rrr");
+	spectrumColors.push_back("bbb");
+	spectrumColors.push_back("grb");
 }
 
 bool GameManager::searchingPlayer(LinkedList* rangeArea) {
-	cout << "BUSCANDO JUGADOR" << endl;
+	//cout << "BUSCANDO JUGADOR" << endl;
 	int size = rangeArea->getSize();
 	Node* temp = rangeArea->getHead();
 	for (int i = 0; i < size; i++) {
