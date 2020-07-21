@@ -70,7 +70,7 @@ public class PlayableMap : MonoBehaviour
     void Update()
     {
         PlayerPos();
-        //DrawBoard();
+        DrawBoard();
 
     }
 
@@ -112,5 +112,8 @@ public class PlayableMap : MonoBehaviour
             mapPlayerPosX = -1;
             mapPlayerPosY = -1;
         }
+    }
+    private void PlayerDir() { 
+    
     }
 }
