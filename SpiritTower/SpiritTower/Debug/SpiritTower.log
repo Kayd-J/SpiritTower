@@ -1,0 +1,36 @@
+﻿  Using triplet "x86-windows" from "C:\vcpkg\installed\x86-windows\"
+  BackTracking.cpp
+  breeder.cpp
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(34,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(45,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(82,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(98,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(114,9): warning C4101: 'bestIdx': unreferenced local variable
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(138,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(220,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(260,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(264,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  ChuChu.cpp
+  EnemigoSimple.cpp
+  GameManager.cpp
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(122,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(127,20): warning C4018: '<': signed/unsigned mismatch
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(132,20): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+  ServerListener.cpp
+  GameServer.cpp
+  JsonHandler.cpp
+  LinkedList.cpp
+  Matrix.cpp
+C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Matrix\Matrix.cpp(11,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  PathFinding.cpp
+  OjoEspectral.cpp
+  RatonSimple.cpp
+  Spectrum.cpp
+  Node.cpp
+  Square.cpp
+  Player.cpp
+  Serialize.cpp
+  Server.cpp
+  Generating Code...
+  SpiritTower.vcxproj -> C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\SpiritTower.exe
