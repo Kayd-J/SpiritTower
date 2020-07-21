@@ -2,19 +2,15 @@
 #include <string>
 #include <iostream>
 #include "json-c/json.h"
-/**
- *  @file Serialize.h
- *  @version 1.0
- *  @date 17/07/2020
- *  @author Joseph Jimenez.
- *  @class Serialize.
- *  @brief Serializa los objetos en formato json
- */
-class Serialize{
+#include "../../Player/Player.h"
+#include "../../Enemies/Spectrum.h"
+#include "../../Enemies/EnemigoSimple.h"
+#include "../../Objeto.h"
+
+using namespace std;
+class Serialize {
 public:
-	/**
-	  * @brief serializa la matriz.
-	*/
-	static void SerializeMatrix(std::string MatrixMap[20][20]);
+	static string SerializeMatrix(std::string MatrixMap[20][20]);
+	static string SerializeData(Player player, vector<Spectrum> ListaEspectros, vector<EnemigoSimple> ListaEnemigos, vector<Objeto> ListaObjetos, Player boss);
 };
 
