@@ -21,21 +21,8 @@ public class PlayableMap : MonoBehaviour
     public Player jugador = Movement.informacion;
     private Wrapper information;
 
-
-    void Awake() {  
-
-        //while (UDPSend.messageSv==null) {
-            //print("esperando respuesta");
-        //}
-
-        //information = JsonHelper.FromJson(UDPSend.messageSv);
-        
-    }
-
-    void Start(){}
-    void conecction() {
+    void conection() {
         //Envio mensajes______________
-
         //juntar a todos los enemigos del nivel en una sola array
 
         Enemies[] bruh = new Enemies[2];
@@ -48,18 +35,16 @@ public class PlayableMap : MonoBehaviour
 
         //Recibo mensajes______________
 
-        //if (UDPSend.messageSv !=null){ information = JsonHelper.FromJson(UDPSend.messageSv); }
-
-
-
+        //if (UDPSend.messageSv !=null){ 
+        //information = JsonHelper.FromJson(UDPSend.messageSv);
         //Player actualPlayer = informacion.Player;
-
         //Enemies[] deserializados = informacion.Enemies;
+        //}
+
 
         //Debug.Log(actualPlayer.Health);
         //Debug.Log(actualPlayer.Score);
         //Debug.Log(actualPlayer.Shield);
-
         //for (int i = 0; i < deserializados.Length; i++)
         //{
         //    Debug.Log(deserializados[i].ID);
@@ -77,9 +62,10 @@ public class PlayableMap : MonoBehaviour
     void FixedUpdate() {
         jugador.posX = mapPlayerPosX;
         jugador.posY = InvertYPlayer - mapPlayerPosY;
-        conecction();
+        conection();
 
     }
+
     // Visualizacion de la matriz
     private void DrawBoard() {
         Vector3 widthLine = Vector3.right * 20;
