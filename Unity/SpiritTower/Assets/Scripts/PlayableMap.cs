@@ -21,6 +21,8 @@ public class PlayableMap : MonoBehaviour
     public Player jugador = Movement.informacion;
     private Wrapper information;
 
+    Spawner spawner = new Spawner();
+
     void conection() {
         //Envio mensajes______________
         //juntar a todos los enemigos del nivel en una sola array
@@ -36,20 +38,25 @@ public class PlayableMap : MonoBehaviour
 
         //Recibo mensajes______________
 
-        //if (UDPSend.messageSV != null)
-        //{
-        //    print("me llego la data");
-        //}
 
 
 
-            //if (UDPSend.messageSv !=null){ 
-            //information = JsonHelper.FromJson(UDPSend.messageSv);
+
+        if (UDPSend.messageSV != null)
+        {
+
+            
+
+            information = JsonHelper.FromJson(UDPSend.messageSV);
             //Player actualPlayer = informacion.Player;
-            //Enemies[] deserializados = informacion.Enemies;
+            Enemies[] deserializados = information.Enemies;
+            Objects[] objetosdeserializados = information.Objects;
+
+            spawner.CheckOrMove(deserializados, objetosdeserializados);
 
 
-            //}
+
+        }
 
 
             //Debug.Log(actualPlayer.Health);

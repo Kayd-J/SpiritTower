@@ -15,13 +15,14 @@ public class Player
 public class Enemies
 {
     public string ID = "A";
+    public string COLOR;
     public bool DEATH = false ;
     public int posX;
     public int posY ;
 }
 
 [Serializable]
-public class Trampas
+public class Objects
 {
     public string ID = "A";
     public bool DEATH = false;
@@ -29,23 +30,5 @@ public class Trampas
     public int posY;
 }
 
-[Serializable]
-public class Cofres
-{
-    public bool DEATH = false;
-    public int posX;
-    public int posY;
-}
-
-[Serializable]
-public class Jarrones
-{
-    public bool DEATH = false;
-    public int posX;
-    public int posY;
-}
-
-public class movable
-{}
 
 

@@ -23,7 +23,7 @@ public class EnemyMovement : MonoBehaviour
         }        
     }
 
-    void move(float x, float y) {
+    public void move(float x, float y) {
         Enemymoves = new Vector3(x, 0f, y);
         agent.SetDestination(Enemymoves);
     }

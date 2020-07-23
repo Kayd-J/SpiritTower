@@ -24,5 +24,5 @@ public class Wrapper
 {
     public Player Player;
     public Enemies[] Enemies;
-    //public Trampas[] Trampas;
+    public Objects[]  Objects;
 }
