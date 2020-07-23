@@ -1,28 +1,9 @@
 ﻿  Using triplet "x86-windows" from "C:\vcpkg\installed\x86-windows\"
-  breeder.cpp
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(34,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(45,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(82,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(98,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(114,9): warning C4101: 'bestIdx': unreferenced local variable
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(138,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(220,27): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(260,27): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\Enemies\breeder.cpp(264,23): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  EnemigoSimple.cpp
   GameManager.cpp
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(148,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(153,20): warning C4018: '<': signed/unsigned mismatch
 C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\GameManager\GameManager.cpp(158,20): warning C4018: '<': signed/unsigned mismatch
-  main.cpp
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\main.cpp(12,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Spectrum.cpp
-  Serialize.cpp
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\server\messagesManager\Serialize.cpp(48,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\server\messagesManager\Serialize.cpp(65,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\server\messagesManager\Serialize.cpp(81,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\server\messagesManager\Serialize.cpp(98,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\SpiritTower\server\messagesManager\Serialize.cpp(118,20): warning C4018: '<': signed/unsigned mismatch
-  Server.cpp
   Generating Code...
 Square.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'Square.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info
 Node.obj : warning LNK4099: PDB 'vc142.pdb' was not found with 'Node.obj' or at 'C:\Users\mario\OneDrive\Documentos\GitHub\SpiritTower\SpiritTower\Debug\vc142.pdb'; linking object as if no debug info

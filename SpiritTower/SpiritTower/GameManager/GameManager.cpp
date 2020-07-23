@@ -415,7 +415,7 @@ void run() {
 		gmr->mapUpdate();
 		gmr->displayMap();
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
-		//gmr->moveRat();
+		gmr->moveRat();
 		cout << gmr->player->posX << "--" << gmr->player->posY << endl;
 
 		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 2) {
@@ -800,7 +800,10 @@ void GameManager::moveRat() {
 				int iy = rats.at(i)->posY;
 				int fx = rats.at(i)->tempX;
 				int fy = rats.at(i)->tempY;
-
+				cout << "ppppppppppppppppppppppppppppppp" << endl;
+				cout << ix << "++++" << iy << endl;
+				cout << fx << "++++" << fy << endl;
+				cout << "ppppppppppppppppppppppppppppppp" << endl;
 				Square* start = matrixLevel.findSquare(ix, iy);
 				Square* end = matrixLevel.findSquare(fx, fy);
 				if (start == end) {
@@ -808,12 +811,13 @@ void GameManager::moveRat() {
 				}
 				else {
 					LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
-					rats.at(i)->tempY = tempList.getHead()->getSquare()->getColNumb();
-					rats.at(i)->tempX = tempList.getHead()->getSquare()->getRowNumb();
-					rats.at(i)->posX = fx;
-					rats.at(i)->posY = fy;
+					rats.at(i)->posY = tempList.getHead()->getSquare()->getColNumb();
+					rats.at(i)->posX = tempList.getHead()->getSquare()->getRowNumb();
+					cout << "PASE PASE PASE" << endl;
+
 				}
 			}
 		}
 	}
 }
+
