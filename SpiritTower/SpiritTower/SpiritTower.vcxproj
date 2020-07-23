@@ -140,11 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithms\BackTracking.cpp" />
+    <ClCompile Include="Objects\Cofre.cpp" />
     <ClCompile Include="Enemies\breeder.cpp" />
     <ClCompile Include="Enemies\ChuChu.cpp" />
     <ClCompile Include="Enemies\EnemigoSimple.cpp" />
     <ClCompile Include="GameManager\GameManager.cpp" />
+    <ClCompile Include="Objects\Jarron.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Objects\Objeto.cpp" />
     <ClCompile Include="server\network\ServerListener.cpp" />
     <ClCompile Include="server\messagesManager\GameServer.cpp" />
     <ClCompile Include="server\messagesManager\JsonHandler.cpp" />
@@ -162,10 +165,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorithms\BackTracking.h" />
+    <ClInclude Include="Objects\Cofre.h" />
     <ClInclude Include="Enemies\breeder.h" />
     <ClInclude Include="Enemies\ChuChu.h" />
     <ClInclude Include="Enemies\EnemigoSimple.h" />
     <ClInclude Include="GameManager\GameManager.h" />
+    <ClInclude Include="Objects\Jarron.h" />
+    <ClInclude Include="Objects\Objeto.h" />
     <ClInclude Include="server\network\ServerListener.h" />
     <ClInclude Include="server\messagesManager\GameServer.h" />
     <ClInclude Include="server\messagesManager\JsonHandler.h" />

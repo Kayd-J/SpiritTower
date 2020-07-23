@@ -3,12 +3,19 @@
 using namespace std;
 class Player {
 public:
-	int posX = 18;
-	int posY = 3;
-	string ids = "P";
-	//Player();
-	int health;
-	int score;
-	bool shield;
-	bool sword;
+    Player();
+    int getPosX();
+    int getPosY();
+    string getIP();
+    int getHealth();
+    int getScore();
+    bool getShield();
+    bool getSword();
+    int posX = 18;
+    int posY = 3;
+    string ids = "P";
+    int health = 1;
+    int score = 100;
+    bool shield = false;
+    bool sword = true;
 };

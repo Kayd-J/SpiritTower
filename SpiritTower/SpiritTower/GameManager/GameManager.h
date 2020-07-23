@@ -13,6 +13,10 @@
 #include "../Enemies/ChuChu.h"
 #include "../Enemies/OjoEspectral.h"
 #include "../Enemies/RatonSimple.h"
+#include "../Objects/Cofre.h"
+#include "../Objects/Jarron.h"
+#include "../Objects/Objeto.h"
+
 
 using namespace std;
 
@@ -67,6 +71,11 @@ public:
 	int cycles = 0;
 	void moveRat();
 	vector<string> spectrumColors;
+
+	vector<Objeto*> objectList;
+	bool objectsFilled = false;
+
+	string dataToSend;
 };
 
 

@@ -67,4 +67,6 @@ public:
     int movimientos = 0;
 
     string color;
+
+    bool death = false;
 };

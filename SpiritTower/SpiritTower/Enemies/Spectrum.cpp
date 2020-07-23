@@ -76,3 +76,4 @@ void Spectrum::setIdGen(string idgen_)
 {
 	idGen = idgen_;
 }
+

@@ -9,6 +9,7 @@ GameManager::GameManager() {
 	breed = new breeder();
 	matrixLevel.createMatrix(20, 20);
 	nextLevel();
+	//cout << Serialize::SerializeData(player,spectrumList,rats,specEye,chu,objectList,player);
 	cout << "-------------------------------------------" << endl;
 	inGame = true;
 	this->starting = thread(run);
@@ -29,6 +30,26 @@ void GameManager::fillMap(Matrix mat) {
 	while (temp2 != nullptr) {
 		while (temp != nullptr) {
 			map[i][j] = to_string(temp->getEntity());
+			if (objectsFilled == false) {
+				if (temp->getEntity() == 3) {
+					Cofre* cofre = new Cofre();
+					cofre->id = "K";
+					cofre->posX = temp->getRowNumb();
+					cofre->posY = temp->getColNumb();
+					cofre->death = false;
+					cofre->color = "g";
+					objectList.push_back(cofre);
+				}
+				else if (temp->getEntity() == 4) {
+					Jarron* jar = new Jarron();
+					jar->id = "J";
+					jar->posX = temp->getRowNumb();
+					jar->posY = temp->getColNumb();
+					jar->death = false;
+					jar->color = "g";
+					objectList.push_back(jar);
+				}
+			}
 			temp = temp->getNexCol();
 			j++;
 		}
@@ -37,6 +58,7 @@ void GameManager::fillMap(Matrix mat) {
 		temp = temp2;
 		i++;
 	}
+	objectsFilled = true;
 }
 
 void GameManager::fillSpectrums() {
@@ -65,8 +87,6 @@ void GameManager::fillSpectrums() {
 	}
 }
 
-
-
 void GameManager::displayMap() {
 	for (int i = 0; i < 20; i++) {
 		for (int j = 0; j < 20; j++) {
@@ -90,7 +110,7 @@ void GameManager::chasing() {
 	if (everybodyFindPlayer == 1) {
 		auto it = spectrumList.begin();
 		auto last = spectrumList.end();
-		if (cycles % ((8 - (*it)->getSrch_speed())) == 0) {
+		if (cycles % ((8 - (*it)->getSrch_speed()) * 2) == 0) {
 			for (it; it != last; ++it) {
 				int x = (*it)->tempX;
 				int y = (*it)->tempY;
@@ -162,24 +182,26 @@ void GameManager::returnBack() {
 		auto it = spectrumList.begin();
 		auto last = spectrumList.end();
 		for (it; it != last; ++it) {
-			int x = (*it)->tempX;
-			int y = (*it)->tempY;
-			Square* start = matrixLevel.findSquare(x, y);
-			Square* end = matrixLevel.findSquare((*it)->posX, (*it)->posY);
-			if (start != end) {
-				if ((*it)->backTrackPath.getSize() == 0) {
-					(*it)->backTrackPath = backTrack.searchPath(matrixLevel, start, end);
+			if (cycles % ((8 - (*it)->getSrch_speed()) * 2) == 0) {
+				int x = (*it)->tempX;
+				int y = (*it)->tempY;
+				Square* start = matrixLevel.findSquare(x, y);
+				Square* end = matrixLevel.findSquare((*it)->posX, (*it)->posY);
+				if (start != end) {
+					if ((*it)->backTrackPath.getSize() == 0) {
+						(*it)->backTrackPath = backTrack.searchPath(matrixLevel, start, end);
+					}
+					else {
+						(*it)->tempY = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getColNumb();
+						(*it)->tempX = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getRowNumb();
+						cout << (*it)->getId() << endl;
+						(*it)->backTrackPath.display();
+						(*it)->backTrackPath.removeNode((*it)->backTrackPath.getHead()->getSquare());
+					}
 				}
 				else {
-					(*it)->tempY = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getColNumb();
-					(*it)->tempX = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getRowNumb();
-					cout << (*it)->getId() << endl;
-					(*it)->backTrackPath.display();
-					(*it)->backTrackPath.removeNode((*it)->backTrackPath.getHead()->getSquare());
+					(*it)->walking = true;
 				}
-			}
-			else {
-				(*it)->walking = true;
 			}
 		}
 	}
@@ -198,7 +220,7 @@ void GameManager::patrolling() {
 			chasingPlayer = true;
 			break;
 		}
-		if (cycles % ((8 - (*it)->getSrch_speed())) == 0) {
+		if (cycles % ((8 - (*it)->getSrch_speed()) * 2) == 0) {
 			(*it)->movimientos++;
 			int initialX = (*it)->tempX;
 			int initialY = (*it)->tempY;
@@ -392,35 +414,8 @@ void run() {
 	while (gmr->inGame) {
 		gmr->mapUpdate();
 		gmr->displayMap();
-		//gmr->gameServer.sendJSON(gmr->sendMap);
-		/*
-		auto it = gmr->spectrumList.begin();
-		auto last = gmr->spectrumList.end();
-		for (it; it != last; ++it) {
-			LinkedList* list = new LinkedList();
-			list = gmr->rangeAnalizer(*it);
-			int size1 = list->getSize();
-			Node* temp = list->getHead();
-			for (int i = 0; i < size1; i++) {
-				gmr->map[temp->getSquare()->getRowNumb()][temp->getSquare()->getColNumb()] = (*it)->getId();
-				temp = temp->getNext();
-			}
-
-		}
-		cout << "--------------------------------------" << endl;
-		gmr->displayMap();
-		int a = 0;
-		while (a < 10) {
-			cout << gmr->player->posX << endl;
-			this_thread::sleep_for(chrono::milliseconds(1000));
-			a++;
-		}
-		gmr->mapUpdate();
-		gmr->displayMap();
-		break;
-		*/
-
-		//gmr->displayMap();
+		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
+		//gmr->moveRat();
 		cout << gmr->player->posX << "--" << gmr->player->posY << endl;
 
 		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 2) {
@@ -428,6 +423,7 @@ void run() {
 			cout << "ZONA SEGURA" << endl;
 		}
 		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 6) {
+			gmr->objectsFilled = false;
 			gmr->nextLevel();
 			cout << "CAMBIE DE NIVEL" << endl;
 			gmr->mapUpdate();
@@ -447,15 +443,19 @@ void run() {
 			cout << "REGRESANDO" << endl;
 		}
 		cout << "----------------------------------------------" << endl;
-		/*
+
+
+
+
+
 		gmr->cycles++;
 		cout << gmr->cycles << endl;
 		this_thread::sleep_for(chrono::milliseconds(10));
 		int size = gmr->spectrumList.size();
-		for (int i = 0; i < size;i++) {
+		for (int i = 0; i < size; i++) {
 			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << endl;
 		}
-		*/
+
 	}
 }
 
@@ -464,6 +464,7 @@ void GameManager::nextLevel() {
 	rats.clear();
 	chu.clear();
 	specEye.clear();
+	objectList.clear();
 	spectrumList.clear();
 	if (level != 1) {
 		breed->newGeneration();
@@ -760,13 +761,13 @@ void GameManager::levelsFiller() {
 	spectrumVect8.push_back(spectrum24);
 	spectrumFinalPosition.push_back(spectrumVect8);
 
-
 	//Spectrum colors list
 
 	spectrumColors.push_back("ggg");
 	spectrumColors.push_back("rrr");
 	spectrumColors.push_back("bbb");
 	spectrumColors.push_back("grb");
+
 }
 
 bool GameManager::searchingPlayer(LinkedList* rangeArea) {
@@ -780,4 +781,39 @@ bool GameManager::searchingPlayer(LinkedList* rangeArea) {
 		temp = temp->getNext();
 	}
 	return false;
+}
+
+void GameManager::moveRat() {
+	PathFinding pathFind;
+	int size = rats.size();
+	for (int i = 0; i < size; i++) {
+		if (rats.at(i)->moving == false) {
+			int random = 1 + rand() % 10;
+			if (random < 3) {
+				rats.at(i)->moving = true;
+				rats.at(i)->randomMove(map);
+			}
+		}
+		else {
+			if (cycles % (7) == 0) {
+				int ix = rats.at(i)->posX;
+				int iy = rats.at(i)->posY;
+				int fx = rats.at(i)->tempX;
+				int fy = rats.at(i)->tempY;
+
+				Square* start = matrixLevel.findSquare(ix, iy);
+				Square* end = matrixLevel.findSquare(fx, fy);
+				if (start == end) {
+					rats.at(i)->moving = false;
+				}
+				else {
+					LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
+					rats.at(i)->tempY = tempList.getHead()->getSquare()->getColNumb();
+					rats.at(i)->tempX = tempList.getHead()->getSquare()->getRowNumb();
+					rats.at(i)->posX = fx;
+					rats.at(i)->posY = fy;
+				}
+			}
+		}
+	}
 }

@@ -27,5 +27,6 @@ public:
     int  clientLength = sizeof(ClientSocket);
 protected:
     bool running = true;
-};
 
+
+};

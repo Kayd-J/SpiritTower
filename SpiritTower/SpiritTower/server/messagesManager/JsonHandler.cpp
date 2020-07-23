@@ -17,7 +17,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     player->shield = shield;
     player->sword = sword;
 
-
+    /*
     std::cout << "This is the PLAYER STATUS -> " << std::endl;
     std::cout << "Can be used One by One :) " << std::endl;
     std::cout << "This is the Health-> " << health << std::endl;
@@ -26,6 +26,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     std::cout << "This is the Sword-> " << sword << std::endl;
     std::cout << "This his PosX-> " << posX << std::endl;
     std::cout << "This his PosY-> " << posY << std::endl;
+    */
     return true;
 }
 bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson, Player*& player) {
