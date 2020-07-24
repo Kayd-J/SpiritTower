@@ -70,6 +70,9 @@ public:
 	bool searchingPlayer(LinkedList* rangeArea);
 	int cycles = 0;
 	void moveRat();
+
+	void objectsUpdate();
+
 	vector<string> spectrumColors;
 
 	vector<Objeto*> objectList;

@@ -14,7 +14,7 @@ int Player::getPosY()
     return posY;
 }
 
-string Player::getIP()
+string Player::getID()
 {
     return ids;
 }
@@ -37,5 +37,40 @@ bool Player::getShield()
 bool Player::getSword()
 {
     return sword;
+}
+
+void Player::setPosX(int _posx)
+{
+    posX = _posx;
+}
+
+void Player::setPosY(int _posy)
+{
+    posY = _posy;
+}
+
+void Player::setID(string _id)
+{
+    ids = _id;
+}
+
+void Player::setHealth(int _health)
+{
+    health = _health;
+}
+
+void Player::setScore(int _score)
+{
+    score = _score;
+}
+
+void Player::setShield(bool _shield)
+{
+    shield = _shield;
+}
+
+void Player::setSword(bool _sword)
+{
+    sword = _sword;
 }
 

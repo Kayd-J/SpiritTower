@@ -10,12 +10,12 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     int posX = DataOne["posX"].asInt();
     int posY = DataOne["posY"].asInt();
 
-    player->posX = posX;
-    player->posY = posY;
-    player->health = health;
-    player->score = score;
-    player->shield = shield;
-    player->sword = sword;
+    player->setPosX(posX);
+    player->setPosY(posY);
+    player->setHealth(health);
+    player->setScore(score);
+    player->setShield(shield);
+    player->setSword(sword);
 
     /*
     std::cout << "This is the PLAYER STATUS -> " << std::endl;

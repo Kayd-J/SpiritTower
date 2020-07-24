@@ -115,7 +115,7 @@ void GameManager::chasing() {
 				int x = (*it)->tempX;
 				int y = (*it)->tempY;
 				Square* start = matrixLevel.findSquare(x, y);
-				Square* end = matrixLevel.findSquare(player->posX, player->posY);
+				Square* end = matrixLevel.findSquare(player->getPosX(), player->getPosY());
 				if (start == end) {
 					(*it)->catchPlayer = true;
 				}
@@ -160,9 +160,9 @@ void GameManager::mapUpdate() {
 		int y = chu.at(i)->posY;
 		map[x][y] = chu.at(i)->getId();
 	}
-	int xp = player->posX;
-	int yp = player->posY;
-	map[xp][yp] = player->ids;
+	int xp = player->getPosX();
+	int yp = player->getPosY();
+	map[xp][yp] = player->getID();
 	sendMap = Serialize::SerializeMatrix(map);
 	//cout << sendMap << endl;
 }
@@ -416,13 +416,13 @@ void run() {
 		gmr->displayMap();
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
 		gmr->moveRat();
-		cout << gmr->player->posX << "--" << gmr->player->posY << endl;
+		cout << gmr->player->getPosX() << "--" << gmr->player->getPosY() << endl;
 
-		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 2) {
+		if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 2) {
 			gmr->chasingPlayer = false;
 			cout << "ZONA SEGURA" << endl;
 		}
-		if (gmr->matrixLevel.findSquare(gmr->player->posX, gmr->player->posY)->getEntity() == 6) {
+		if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 6) {
 			gmr->objectsFilled = false;
 			gmr->nextLevel();
 			cout << "CAMBIE DE NIVEL" << endl;
@@ -775,7 +775,7 @@ bool GameManager::searchingPlayer(LinkedList* rangeArea) {
 	int size = rangeArea->getSize();
 	Node* temp = rangeArea->getHead();
 	for (int i = 0; i < size; i++) {
-		if (temp->getSquare()->getRowNumb() == player->posX && temp->getSquare()->getColNumb() == player->posY) {
+		if (temp->getSquare()->getRowNumb() == player->getPosX() && temp->getSquare()->getColNumb() == player->getPosY()) {
 			return true;
 		}
 		temp = temp->getNext();
@@ -815,6 +815,25 @@ void GameManager::moveRat() {
 					rats.at(i)->posX = tempList.getHead()->getSquare()->getRowNumb();
 					cout << "PASE PASE PASE" << endl;
 
+				}
+			}
+		}
+	}
+}
+
+void GameManager::objectsUpdate()
+{
+	for (int i = 0; i < objectList.size(); i++) {
+		Objeto* temp = objectList.at(i);
+		if (!(temp->given)) {
+			if (temp->death) {
+				if (temp->id == "J") {
+					player->setHealth(player->getHealth() + 1);
+					temp->given = 1;
+				}
+				else {
+					player->setScore(player->getScore() + 100);
+					temp->given = 1;
 				}
 			}
 		}
