@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Minimap
   - Wall
+  - Floor
   layers:
   - Default
   - TransparentFX

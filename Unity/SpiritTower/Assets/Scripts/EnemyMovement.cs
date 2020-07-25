@@ -11,21 +11,12 @@ public class EnemyMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-
-        /*
-        if (Input.GetMouseButtonDown(0)) {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)) {
-                //Mueve el agente
-                move(1.5f, 1.5f);                
-            }        
-        }
-        */    
+            
     }
 
     public void move(float x, float y) {
         Enemymoves = new Vector3(x, 0f, y);
-        //agent.SetDestination(Enemymoves);
+        agent.SetDestination(Enemymoves);
     }
+
 }

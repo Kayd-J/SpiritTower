@@ -54,7 +54,6 @@ public class UDPSend : MonoBehaviour
         {
             try
             {
-
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 54001);
                 byte[] dato = client.Receive(ref anyIP);
                 messageSV = Encoding.UTF8.GetString(dato);

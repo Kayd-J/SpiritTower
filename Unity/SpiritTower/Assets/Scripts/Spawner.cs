@@ -14,19 +14,18 @@ public class Spawner : MonoBehaviour
     public GameObject EAzul;
     public GameObject ERojo;
     private static List<MapEnemy> enemiesInstanciados;
-    private static List<Objecto> cofresInstanciados;
-    private static List<Objecto> jarronesInstanciados;
+    private static List<Objecto> objetosInstanciados;
     public static int TresureCount;
 
     public void CheckOrMove(Enemies[] enemies, Objects[] objetos) {
 
         for (int i = 0; i < objetos.Length; i++)        {
-            if (jarronesInstanciados == null){
-                jarronesInstanciados = new List<Objecto>();
+            if (objetosInstanciados == null){
+                objetosInstanciados = new List<Objecto>();
                 addObject(objetos[i], i);
             }
             else{
-                if (jarronesInstanciados.Count < objetos.Length) {
+                if (objetosInstanciados.Count < objetos.Length) {
                     addObject(objetos[i], i);
                 }
                 else {
@@ -61,7 +60,7 @@ public class Spawner : MonoBehaviour
         MapEnemy IngameEnemy = new MapEnemy();
         IngameEnemy.information = enemy;
         //correct placement
-        Vector3 postition = new Vector3((float)enemy.posX - 0.5f, 0f, (float)enemy.posY - 0.5f);
+        Vector3 postition = new Vector3((float)enemy.posX - 0.5f, 0f, 19f - ((float)enemy.posY - 0.5f));
         //instance the object  
         string type = enemy.ID;
         GameObject instance;
@@ -132,7 +131,8 @@ public class Spawner : MonoBehaviour
         {
             if (enemy.ID == enemiesInstanciados[i].information.ID)
             {
-               enemiesInstanciados[i].entity.GetComponent<EnemyMovement>().move((float)enemy.posX + 0.5f, (float)enemy.posY + 0.5f);
+               
+               enemiesInstanciados[i].entity.GetComponent<EnemyMovement>().move((float)enemy.posX - 0.5f, 19f -((float)enemy.posY - 0.5f));
             }
         }
     }
@@ -144,13 +144,13 @@ public class Spawner : MonoBehaviour
             Objecto objetoEnJuego = new Objecto();
             objetoEnJuego.information = objeto;
             //correct placement
-            Vector3 postition = new Vector3((float)objeto.posX - 0.5f, 0f, (float)objeto.posY - 0.5f);
+            Vector3 postition = new Vector3((float)objeto.posX - 0.5f, 0f, 19f- ((float)objeto.posY - 0.5f));
             //instance the object
             GameObject instance = Instantiate(Jarron, transform.position + postition, transform.rotation);
 
 
             objetoEnJuego.entity = instance;
-            jarronesInstanciados.Add(objetoEnJuego);
+            objetosInstanciados.Add(objetoEnJuego);
 
         }
         else
@@ -162,53 +162,24 @@ public class Spawner : MonoBehaviour
             Vector3 postition = new Vector3((float)objeto.posX - 0.5f, 0f, (float)objeto.posY - 0.5f);
             //________________________________  |
             //instance the object  remember to  V  Change that
-            GameObject instance = Instantiate(Jarron, transform.position + postition, transform.rotation);
+            GameObject instance = Instantiate(Cofre, transform.position + postition, transform.rotation);
 
 
             objetoEnJuego.entity = instance;
-            jarronesInstanciados.Add(objetoEnJuego);
+            objetosInstanciados.Add(objetoEnJuego);
         }
 
     }
 
     private void updateObject(Objects objeto) {
-        switch (objeto.ID)
+
+        for (int i = 0; i < objetosInstanciados.Count; i++)
         {
-            case "J":
-                for (int i = 0; i < jarronesInstanciados.Count; i++) {
-                    if((jarronesInstanciados[i].information.posY == objeto.posY) && (jarronesInstanciados[i].information.posX == objeto.posX))
-                    {
-                        jarronesInstanciados[i].information.DEATH = objeto.DEATH;
-                    }
-                }
-                break;
-            case "K":
-                for (int i = 0; i < cofresInstanciados.Count; i++)
-                {
-                    if ((cofresInstanciados[i].information.posY == objeto.posY) && (cofresInstanciados[i].information.posX == objeto.posX))
-                    {
-                        cofresInstanciados[i].information.DEATH = objeto.DEATH;
-                    }
-                }
-                break;
+            if ((objetosInstanciados[i].information.posY == objeto.posY) && (objetosInstanciados[i].information.posX == objeto.posX))
+            {
+                objetosInstanciados[i].information.DEATH = objeto.DEATH;
+            }
         }
+
     }
 }
-
-public class MapEnemy{
-        public GameObject entity;
-        public Enemies information;
-}
-
-public class Objecto
-{
-    public GameObject entity;
-    public Objects information;
-}
-
-
-
-
-
-
-

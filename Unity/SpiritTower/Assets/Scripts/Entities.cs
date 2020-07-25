@@ -42,4 +42,15 @@ public class Boss
 }
 
 
+public class MapEnemy
+{
+    public GameObject entity;
+    public Enemies information;
+}
 
+public class Objecto
+{
+    public GameObject entity;
+    public Objects information;
+
+}

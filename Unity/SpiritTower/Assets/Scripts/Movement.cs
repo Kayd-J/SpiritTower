@@ -16,9 +16,19 @@ public class Movement : MonoBehaviour
     public static Player informacion =new Player();
     // Update is called once per frame
     void Update(){
+
+        //movement
         axisX = Input.GetAxisRaw("Horizontal")*speed;
         axisY = Input.GetAxisRaw("Vertical")*speed;
         axis = new Vector3(axisX,0,axisY);
+
+        if (Input.GetMouseButtonDown(0))
+        {
+
+            print("click");
+            
+        }
+
     }
 
     void FixedUpdate() {
@@ -28,5 +38,8 @@ public class Movement : MonoBehaviour
         }
         transform.LookAt(rigidbody.position + axis);
     }
+
+
+
 
 }
