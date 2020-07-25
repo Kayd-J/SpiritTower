@@ -17,11 +17,15 @@ public class PlayableMap : MonoBehaviour
     private int mapPlayerPosY = -1;
     private int InvertYPlayer = 19;
     [SerializeField] Rigidbody player;
+    [SerializeField] GameObject spawner;
     //Comunication Info
     public Player jugador = Movement.informacion;
     private Wrapper information;
 
-    Spawner spawner = new Spawner();
+
+
+
+    //Spawner spawner = new Spawner();
 
     void conection() {
         //Envio mensajes______________
@@ -36,7 +40,17 @@ public class PlayableMap : MonoBehaviour
         print(playerToJason);
         UDPSend.sendString(playerToJason);
 
+
+        List<int> prueba = new List<int>();
+        prueba.Add(1);
+        prueba.Add(2);
+        prueba.Add(3);
+
+        print(prueba[0]);
+
         //Recibo mensajes______________
+
+        UDPSend.messageSV = "{\"Player\": {\"Health\": 1, \"Score\": 100, \"Shield\": false, \"Sword\": true, \"posX\": false, \"posY\": true }, \"Enemies\": [{\"ID\": \"B\",\"COLOR\": \"g\", \"DEATH\": false, \"posX\": 3, \"posY\": 2 } ], \"Objects\": [ { \"ID\": \"J\", \"DEATH\": false, \"posX\": 2, \"posY\": 3 }, {\"ID\": \"J\", \"DEATH\": false, \"posX\": 2, \"posY\": 2 } ] }"; 
 
 
 
@@ -52,7 +66,7 @@ public class PlayableMap : MonoBehaviour
             Enemies[] deserializados = information.Enemies;
             Objects[] objetosdeserializados = information.Objects;
 
-            spawner.CheckOrMove(deserializados, objetosdeserializados);
+            spawner.GetComponent<Spawner>().CheckOrMove(deserializados, objetosdeserializados);
 
 
 
@@ -80,7 +94,6 @@ public class PlayableMap : MonoBehaviour
         PlayerPos();
         jugador.posX = mapPlayerPosX;
         jugador.posY = InvertYPlayer - mapPlayerPosY;
-        print(jugador.posY);
         conection();
 
 

@@ -44,7 +44,6 @@ public class UDPSend : MonoBehaviour
         }
         catch (Exception err)
         {
-            print(err.ToString());
         }
     }
 
@@ -64,7 +63,6 @@ public class UDPSend : MonoBehaviour
             }
             catch (Exception err)
             {
-                print(err.ToString());
             }
         }
     }

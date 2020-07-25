@@ -30,5 +30,16 @@ public class Objects
     public int posY;
 }
 
+[Serializable]
+public class Boss
+{
+    public int Health = 100;
+    public int Score = 10;
+    public int posX = 2;
+    public int posY = 3;
+    public bool Shield = false;
+    public bool Sword = true;
+}
+
 
 
