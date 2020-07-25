@@ -3,6 +3,7 @@
 #include <json/json.h>
 #include <json/value.h>
 #include "../../Player/Player.h"
+#include "../../Objects/Objeto.h"
 
 /**
  *  @file JsonHandler.h
@@ -16,9 +17,9 @@ public:
     /**
       * @brief usa los json obtenidos del mensaje.
     */
-    static bool handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Json::Value DataThree, Json::Value DataFour, Player*& player);
+    static bool handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Json::Value DataThree, Json::Value DataFour, Player*& player, vector<Objeto*> &objetos);
     /**
       * @brief obtiene json de cada mensaje entrante.
     */
-    static bool Deserialize(std::basic_string<char> streamOfJson, Player*& player);
+    static bool Deserialize(std::basic_string<char> streamOfJson, Player*& player, vector<Objeto*> &objetos);
 };

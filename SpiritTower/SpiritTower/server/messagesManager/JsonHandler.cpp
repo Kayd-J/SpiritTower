@@ -1,6 +1,6 @@
 #include "JsonHandler.h"
 
-bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Json::Value DataThree, Json::Value DataFour, Player*& player) {
+bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Json::Value DataThree, Json::Value DataFour, Player*& player, vector<Objeto*> &objetos) {
 
     std::cout << "INFO RECEIVED " << std::endl;
     int health = DataOne["Health"].asInt();
@@ -32,13 +32,20 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
         std::cout << DataThree[i]["COLOR"] << std::endl;
         bool deathObject = DataThree[i]["DEATH"].asBool();
         std::string idObject = DataThree[i]["ID"].asString();
-        int posXObject = DataThree[i]["posX"].asInt();
-        int posYObject = DataThree[i]["posY"].asInt();
+        int posYObject = DataThree[i]["posX"].asInt();
+        int posXObject = DataThree[i]["posY"].asInt();
 
         std::cout << "This is the Object Score Death-> " << deathObject << std::endl;
         std::cout << "This is the Object ID-> " << idObject << std::endl;
         std::cout << "This his Object PosX-> " << posXObject << std::endl;
         std::cout << "This his Object PosY-> " << posYObject << std::endl;
+        for (int j = 0; j < objetos.size(); j++) {
+            if ((objetos.at(j)->posX == posXObject) && (objetos.at(j)->posY == posYObject)) {
+                if (deathObject && !objetos.at(i)->given) {
+                    objetos.at(i)->death = 1;
+                }
+            }
+        }
     }
     //------------------------------Boss-------------------------------------------------------------
     int healthBoss = DataFour["Health"].asInt();
@@ -69,7 +76,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
 
     return true;
 }
-bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson, Player*& player) {
+bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson, Player*& player, vector<Objeto*> &objetos) {
     Json::Value root;
     std::string errors;
     Json::CharReaderBuilder builder;
@@ -87,7 +94,7 @@ bool JsonHandler::Deserialize(std::basic_string<char> streamOfJson, Player*& pla
             auto DataTwo = root["Enemies"];
             auto DataThree = root["Objects"];
             auto DataFour = root["Boss"];
-            if (handlingReceivedData(DataOne, DataTwo, DataThree, DataFour, player)) {
+            if (handlingReceivedData(DataOne, DataTwo, DataThree, DataFour, player, objetos)) {
                 return true;
             }
             else {

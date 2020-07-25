@@ -51,8 +51,8 @@ string Serialize::SerializeData(Player* player, vector<Spectrum*> ListaEspectros
 		json_object* IDspectros = json_object_new_string(ListaEspectros.at(i)->getId().c_str());
 		json_object* COLORspectros = json_object_new_string(ListaEspectros.at(i)->color.c_str());
 		json_object* DEATHspectros = json_object_new_boolean(ListaEspectros.at(i)->death);
-		json_object* POSXspectros = json_object_new_int(ListaEspectros.at(i)->posY);
-		json_object* POSYspectros = json_object_new_int(ListaEspectros.at(i)->posX);
+		json_object* POSXspectros = json_object_new_int(ListaEspectros.at(i)->tempY);
+		json_object* POSYspectros = json_object_new_int(ListaEspectros.at(i)->tempX);
 
 		json_object_object_add(spectros, "ID", IDspectros);
 		json_object_object_add(spectros, "COLOR", COLORspectros);
@@ -121,7 +121,7 @@ string Serialize::SerializeData(Player* player, vector<Spectrum*> ListaEspectros
 
 		json_object* IDObject = json_object_new_string(ListaObjetos.at(i)->id.c_str());
 		json_object* DEATHObject = json_object_new_boolean(ListaObjetos.at(i)->death);
-		json_object* POSXObject = json_object_new_int(ListaObjetos.at(i)->posX);
+		json_object* POSXObject = json_object_new_int(ListaObjetos.at(i)->posY);
 		json_object* POSYObject = json_object_new_int(ListaObjetos.at(i)->posX);
 
 

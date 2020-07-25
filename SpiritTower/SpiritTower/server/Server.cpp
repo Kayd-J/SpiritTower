@@ -30,7 +30,7 @@ void Server::sendMessage(std::string message) {
 void Server::onMessageReceived(std::string message) {
     GameManager* game = GameManager::getInstance();
     //cout << message << endl;
-    if (JsonHandler::Deserialize(message, game->player)) {
+    if (JsonHandler::Deserialize(message, game->player, game->objectList)) {
         message = game->dataToSend;
         // message = "HOLA";
         sendMessage(message);
