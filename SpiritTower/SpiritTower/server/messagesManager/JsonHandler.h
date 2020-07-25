@@ -6,9 +6,8 @@
 
 /**
  *  @file JsonHandler.h
- *  @version 1.0
+ *  @version 2.0
  *  @date 17/07/2020
- *  @author Joseph Jimenez.
  *  @class JsonHandler.
  *  @brief Controla los mensajes Json que ingresan al servidor.
  */
@@ -17,7 +16,7 @@ public:
     /**
       * @brief usa los json obtenidos del mensaje.
     */
-    static bool handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Player*& player);
+    static bool handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Json::Value DataThree, Json::Value DataFour, Player*& player);
     /**
       * @brief obtiene json de cada mensaje entrante.
     */
