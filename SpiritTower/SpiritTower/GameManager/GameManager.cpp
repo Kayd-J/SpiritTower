@@ -795,7 +795,7 @@ void GameManager::moveRat() {
 			}
 		}
 		else {
-			if (cycles % (7) == 0) {
+			if (cycles % (14) == 0) {
 				int ix = rats.at(i)->posX;
 				int iy = rats.at(i)->posY;
 				int fx = rats.at(i)->tempX;

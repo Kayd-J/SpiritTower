@@ -2,7 +2,7 @@
 
 bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo, Json::Value DataThree, Json::Value DataFour, Player*& player, vector<Objeto*> &objetos) {
 
-    std::cout << "INFO RECEIVED " << std::endl;
+    //std::cout << "INFO RECEIVED " << std::endl;
     int health = DataOne["Health"].asInt();
     int score = DataOne["Score"].asInt();
     bool shield = DataOne["Shield"].asBool();
@@ -11,7 +11,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     int posY = DataOne["posY"].asInt();
 
     //------------------------------Enemies-------------------------------------------------------------
-
+    
     for (int i = 0; i < DataTwo.size(); ++i) {
         std::cout << DataTwo[i]["COLOR"] << std::endl;
         std::string colorEnemie = DataTwo[i]["COLOR"].asString();
@@ -39,6 +39,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
         std::cout << "This is the Object ID-> " << idObject << std::endl;
         std::cout << "This his Object PosX-> " << posXObject << std::endl;
         std::cout << "This his Object PosY-> " << posYObject << std::endl;
+        
         for (int j = 0; j < objetos.size(); j++) {
             if ((objetos.at(j)->posX == posXObject) && (objetos.at(j)->posY == posYObject)) {
                 if (deathObject && !objetos.at(i)->given) {
@@ -46,6 +47,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
                 }
             }
         }
+        
     }
     //------------------------------Boss-------------------------------------------------------------
     int healthBoss = DataFour["Health"].asInt();
@@ -65,8 +67,8 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     std::cout << "This his Boss PosY-> " << posYBoss << std::endl;
 
 
-    system("pause");
-
+    //system("pause");
+    
     player->setPosX(posX);
     player->setPosY(posY);
     player->setHealth(health);
