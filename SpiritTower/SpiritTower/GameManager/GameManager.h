@@ -46,7 +46,7 @@ public:
 	void mapUpdate();
 	void returnBack();
 	void patrolling();
-	int level = 0;
+	int level = 2;
 	LinkedList* rangeAnalizer(Spectrum* spect);
 	void analizeIm(LinkedList*& result, int impar, string dir, Spectrum* spect);
 	void analizePa(LinkedList*& result, int pa, string dir, Spectrum* spect);
@@ -79,6 +79,12 @@ public:
 	bool objectsFilled = false;
 
 	string dataToSend;
+
+	void eyesVision();
+
+	void teleportSpect(int x, int y);
+
+	void spectrumAttack();
 };
 
 

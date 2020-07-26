@@ -7,6 +7,7 @@ GameManager* GameManager::instance = 0;
 GameManager::GameManager() {
 	player = new Player();
 	breed = new breeder();
+	breed->newGeneration();
 	matrixLevel.createMatrix(20, 20);
 	nextLevel();
 	//cout << Serialize::SerializeData(player,spectrumList,rats,specEye,chu,objectList,player);
@@ -110,8 +111,9 @@ void GameManager::chasing() {
 	if (everybodyFindPlayer == 1) {
 		auto it = spectrumList.begin();
 		auto last = spectrumList.end();
-		if (cycles % ((8 - (*it)->getSrch_speed()) * 2) == 0) {
-			for (it; it != last; ++it) {
+		
+		for (it; it != last; ++it) {
+			if (cycles % ((8 - (*it)->getChase_speed()) * 2) == 0) {
 				int x = (*it)->tempX;
 				int y = (*it)->tempY;
 				Square* start = matrixLevel.findSquare(x, y);
@@ -130,6 +132,7 @@ void GameManager::chasing() {
 				}
 			}
 		}
+		
 	}
 	else {
 		this->chasingPlayer = false;
@@ -182,7 +185,7 @@ void GameManager::returnBack() {
 		auto it = spectrumList.begin();
 		auto last = spectrumList.end();
 		for (it; it != last; ++it) {
-			if (cycles % ((8 - (*it)->getSrch_speed()) * 2) == 0) {
+			if (cycles % 7 == 0) {
 				int x = (*it)->tempX;
 				int y = (*it)->tempY;
 				Square* start = matrixLevel.findSquare(x, y);
@@ -216,6 +219,7 @@ void GameManager::patrolling() {
 	auto last = spectrumList.end();
 	for (it; it != last; ++it) {
 		if (searchingPlayer(rangeAnalizer(*it))) {
+			teleportSpect((*it)->posX, (*it)->posY);
 			walking = false;
 			chasingPlayer = true;
 			break;
@@ -416,13 +420,25 @@ void run() {
 		gmr->displayMap();
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
 		gmr->moveRat();
+		gmr->spectrumAttack();
+		cout << gmr->player->getHealth() << endl;
+		if (gmr->player->getHealth() <= 0) {
+			cout << "JUGADOR HA MUERTO" << endl;
+			break;
+		}
 		cout << gmr->player->getPosX() << "--" << gmr->player->getPosY() << endl;
-
+		
+		if (gmr->level == 3 || gmr->level == 4) {
+			gmr->eyesVision();
+			gmr->mapUpdate();
+			gmr->displayMap();
+			
+		}
 		if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 2) {
 			gmr->chasingPlayer = false;
 			cout << "ZONA SEGURA" << endl;
 		}
-		if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 6) {
+		else if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 6) {
 			gmr->objectsFilled = false;
 			gmr->nextLevel();
 			cout << "CAMBIE DE NIVEL" << endl;
@@ -444,17 +460,17 @@ void run() {
 		}
 		cout << "----------------------------------------------" << endl;
 
-
-
-
-
 		gmr->cycles++;
+		
 		cout << gmr->cycles << endl;
 		this_thread::sleep_for(chrono::milliseconds(10));
 		int size = gmr->spectrumList.size();
 		for (int i = 0; i < size; i++) {
-			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << endl;
+			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << "----"<<gmr->spectrumList.at(i)->getChase_speed()<<endl;
 		}
+		
+		gmr->player->setPosX(18);
+		gmr->player->setPosY(3);
 
 	}
 }
@@ -471,7 +487,7 @@ void GameManager::nextLevel() {
 	}
 	matrixLevel.fillMat(level);
 	fillMap(matrixLevel);
-	if (level == 1) {
+	if (level == 3) {
 		levelsFiller();
 	}
 	fillSpectrums();
@@ -582,7 +598,7 @@ void GameManager::levelsFiller() {
 	spectEye1->setColNumb(8);
 	Square* spectEye2 = new Square();
 	spectEye2->setRowNumb(3);
-	spectEye2->setColNumb(16);
+	spectEye2->setColNumb(14);
 	spectVect3.push_back(spectEye1);
 	spectVect3.push_back(spectEye2);
 	eyePositions.push_back(spectVect3);
@@ -839,4 +855,46 @@ void GameManager::objectsUpdate()
 		}
 	}
 }
+
+void GameManager::eyesVision()
+{
+	int size = specEye.size();
+	for (int i = 0; i < size; i++) {
+		for (int j = -2; j <= 2; j++) {
+			for (int k = -2; k <= 2; k++) {
+				if (specEye.at(i)->posX + j == player->getPosX() && specEye.at(i)->posY + k == player->getPosY()) {
+					teleportSpect(specEye.at(i)->posX, specEye.at(i)->posY);
+				}
+			}
+		}
+	}
+}
+
+void GameManager::teleportSpect(int x, int y){
+	int size = spectrumList.size();
+	for (int i = 0; i < size;i++) {
+		if (spectrumList.at(i)->color == "b" && !spectrumList.at(i)->death) {
+			spectrumList.at(i)->tempX = x;
+			spectrumList.at(i)->tempY = y;
+			chasingPlayer = true;
+			walking = false;
+			cout << "TELEPORT" << "---" << spectrumList.at(i)->getId() << endl;
+		}
+	}
+}
+
+void GameManager::spectrumAttack(){
+	int size = spectrumList.size();
+	if (cycles%7==0) {
+		for (int i = 0; i < size; i++) {
+			if (spectrumList.at(i)->tempX == player->getPosX() && spectrumList.at(i)->tempY == player->getPosY()) {
+				if (player->getShield() == false) {
+					player->setHealth(player->getHealth() - 1);
+				}
+			}
+		}
+	}
+}
+
+
 
