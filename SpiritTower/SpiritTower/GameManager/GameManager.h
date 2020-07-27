@@ -65,6 +65,7 @@ public:
 	vector<vector<Square*>> chuPositions;
 	vector<vector<Square*>> spectrumPositions;
 	vector<vector<Square*>> spectrumFinalPosition;
+	vector<vector<Square*>> playerPositions;
 	void nextLevel();
 	void levelsFiller();
 	bool searchingPlayer(LinkedList* rangeArea);
@@ -85,6 +86,8 @@ public:
 	void teleportSpect(int x, int y);
 
 	void spectrumAttack();
+
+	bool restartLvl = false;
 };
 
 

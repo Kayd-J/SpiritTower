@@ -421,10 +421,22 @@ void run() {
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
 		gmr->moveRat();
 		gmr->spectrumAttack();
+
 		cout << gmr->player->getHealth() << endl;
+
+
 		if (gmr->player->getHealth() <= 0) {
 			cout << "JUGADOR HA MUERTO" << endl;
-			break;
+			gmr->level--;
+			gmr->player->setHealth(5);
+			gmr->player->setScore(gmr->player->getScore() - 300);
+			cout << gmr->player->getHealth();
+			cout << gmr->player->getScore();
+			gmr->restartLvl = true;
+			gmr->nextLevel();
+			gmr->chasingPlayer = false;
+			gmr->walking = true;
+			gmr->restartLvl = false;
 		}
 		cout << gmr->player->getPosX() << "--" << gmr->player->getPosY() << endl;
 		
@@ -468,10 +480,6 @@ void run() {
 		for (int i = 0; i < size; i++) {
 			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << "----"<<gmr->spectrumList.at(i)->getChase_speed()<<endl;
 		}
-		
-		gmr->player->setPosX(18);
-		gmr->player->setPosY(3);
-
 	}
 }
 
@@ -482,7 +490,7 @@ void GameManager::nextLevel() {
 	specEye.clear();
 	objectList.clear();
 	spectrumList.clear();
-	if (level != 1) {
+	if (level != 1 && restartLvl == false) {
 		breed->newGeneration();
 	}
 	matrixLevel.fillMat(level);
@@ -490,6 +498,8 @@ void GameManager::nextLevel() {
 	if (level == 3) {
 		levelsFiller();
 	}
+	player->setPosX(playerPositions.at(level - 1).at(0)->getRowNumb());
+	player->setPosY(playerPositions.at(level - 1).at(0)->getColNumb());
 	fillSpectrums();
 	fillEnemies();
 }
@@ -784,6 +794,41 @@ void GameManager::levelsFiller() {
 	spectrumColors.push_back("bbb");
 	spectrumColors.push_back("grb");
 
+
+	///////player positions//////////
+
+	vector<Square*> playerVect1;
+	Square* player1 = new Square();
+	player1->setRowNumb(18);
+	player1->setColNumb(1);
+	playerVect1.push_back(player1);
+	playerPositions.push_back(playerVect1);
+
+
+	vector<Square*> playerVect2;
+	Square* player2 = new Square();
+	player2->setRowNumb(1);
+	player2->setColNumb(1);
+	playerVect2.push_back(player2);
+	playerPositions.push_back(playerVect2);
+
+
+	vector<Square*> playerVect3;
+	Square* player3 = new Square();
+	player3->setRowNumb(1);
+	player3->setColNumb(18);
+	playerVect3.push_back(player3);
+	playerPositions.push_back(playerVect3);
+
+
+	vector<Square*> playerVect4;
+	Square* player4 = new Square();
+	player4->setRowNumb(18);
+	player4->setColNumb(1);
+	playerVect4.push_back(player4);
+	playerPositions.push_back(playerVect4);
+
+
 }
 
 bool GameManager::searchingPlayer(LinkedList* rangeArea) {
@@ -860,10 +905,23 @@ void GameManager::eyesVision()
 {
 	int size = specEye.size();
 	for (int i = 0; i < size; i++) {
-		for (int j = -2; j <= 2; j++) {
-			for (int k = -2; k <= 2; k++) {
-				if (specEye.at(i)->posX + j == player->getPosX() && specEye.at(i)->posY + k == player->getPosY()) {
-					teleportSpect(specEye.at(i)->posX, specEye.at(i)->posY);
+		if (specEye.at(i)->watched == false) {
+			for (int j = -2; j <= 2; j++) {
+				for (int k = -2; k <= 2; k++) {
+					if (specEye.at(i)->posX + j == player->getPosX() && specEye.at(i)->posY + k == player->getPosY()) {
+						teleportSpect(specEye.at(i)->posX, specEye.at(i)->posY);
+						specEye.at(i)->watched = true;
+					}
+				}
+			}
+		}
+		else{
+			specEye.at(i)->watched = false;
+			for (int j = -2; j <= 2; j++) {
+				for (int k = -2; k <= 2; k++) {
+					if (specEye.at(i)->posX + j == player->getPosX() && specEye.at(i)->posY + k == player->getPosY()) {
+						specEye.at(i)->watched = true;
+					}
 				}
 			}
 		}

@@ -21,11 +21,11 @@ public:
     void setSword(bool _sword);
 
 private:
-    int posX = 10;
-    int posY = 1;
+    int posX;
+    int posY;
     string ids = "P";
     int health = 5;
     int score = 0;
-    bool shield = true;
+    bool shield = false;
     bool sword = false;
 };
