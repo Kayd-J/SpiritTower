@@ -5,6 +5,7 @@ public class Player
 {
     public int Health=100;
     public int Score=10;
+    public string Direction = "N";
     public int posX=2;
     public int posY=3;
     public bool Shield=false;

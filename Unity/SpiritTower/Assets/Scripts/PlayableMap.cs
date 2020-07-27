@@ -98,7 +98,5 @@ public class PlayableMap : MonoBehaviour
             mapPlayerPosY = -1;
         }
     }
-    private void PlayerDir() { 
     
-    }
 }

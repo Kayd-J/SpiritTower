@@ -9,25 +9,16 @@ using System.Threading;
 public class UDPSend : MonoBehaviour
 {
     private static int localPort;
-    [SerializeField] Rigidbody player;
-
     // prefs
     private static string IP = "127.0.0.1";  // define in init
     public static int port = 54000;  // define in init
-
     // "connection" things
     static IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Parse(IP), port);
     static UdpClient client = new UdpClient();
     // receiving Thread
     static Thread receiveThread = new Thread(new ThreadStart(ReceiveData));
-
     // gui
     public static string messageSV;
-
-    // infos
-    public string lastReceivedUDPPacket = "";
-    public string allReceivedUDPPackets = ""; // clean up this from time to time!
-
     // sendData
     public static void sendString(string message)
     {
@@ -37,16 +28,11 @@ public class UDPSend : MonoBehaviour
             byte[] data = Encoding.UTF8.GetBytes(message);
             // Den message zum Remote-Client senden.
             client.Send(data, data.Length, remoteEndPoint);
-            //receiveThread = new Thread(new ThreadStart(ReceiveData));
             receiveThread.IsBackground = true;
             receiveThread.Start();
-
         }
-        catch (Exception err)
-        {
-        }
+        catch (Exception err){}
     }
-
     // receive data thread
     private static void ReceiveData()
     {
@@ -57,12 +43,9 @@ public class UDPSend : MonoBehaviour
                 IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 54001);
                 byte[] dato = client.Receive(ref anyIP);
                 messageSV = Encoding.UTF8.GetString(dato);
-                // lo que recibe del servidor
                 //print(">> " + text);
             }
-            catch (Exception err)
-            {
-            }
+            catch (Exception err){}
         }
     }
 

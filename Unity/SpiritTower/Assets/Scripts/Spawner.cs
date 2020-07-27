@@ -13,8 +13,8 @@ public class Spawner : MonoBehaviour
     public GameObject EGris;
     public GameObject EAzul;
     public GameObject ERojo;
-    private static List<MapEnemy> enemiesInstanciados;
-    private static List<Objecto> objetosInstanciados;
+    public static List<MapEnemy> enemiesInstanciados;
+    public static List<Objecto> objetosInstanciados;
     public static int TresureCount;
 
     public void CheckOrMove(Enemies[] enemies, Objects[] objetos) {
@@ -54,13 +54,12 @@ public class Spawner : MonoBehaviour
             }
         }
     }
-
     private void createEnemies(Enemies enemy) {
         //creates a "wrap" with both IngameObject and the information 
         MapEnemy IngameEnemy = new MapEnemy();
         IngameEnemy.information = enemy;
         //correct placement
-        Vector3 postition = new Vector3((float)enemy.posX - 0.5f, 0f, 19f - ((float)enemy.posY - 0.5f));
+        Vector3 postition = new Vector3((float)enemy.posX + 0.5f, 0f, 19f - ((float)enemy.posY - 0.5f));
         //instance the object  
         string type = enemy.ID;
         GameObject instance;
@@ -75,7 +74,6 @@ public class Spawner : MonoBehaviour
             case "C":
                 instance = Instantiate(typeofEspectro(enemy.COLOR), transform.position + postition, transform.rotation);
                 break;
-
             //Ratones
             case "R":
                 instance = Instantiate(Raton, transform.position + postition, transform.rotation);
@@ -89,7 +87,6 @@ public class Spawner : MonoBehaviour
             case "N":
                 instance = Instantiate(Raton, transform.position + postition, transform.rotation);
                 break;
-
             //Ojos espectrales
             case "S":
                 instance = Instantiate(Ojo, transform.position + postition, transform.rotation);
@@ -97,7 +94,6 @@ public class Spawner : MonoBehaviour
             case "E":
                 instance = Instantiate(Ojo, transform.position + postition, transform.rotation);
                 break;
-
             //Chuchu
             case "H":
                 instance = Instantiate(ChuChu, transform.position + postition, transform.rotation);
@@ -108,8 +104,6 @@ public class Spawner : MonoBehaviour
         }
         IngameEnemy.entity = instance;
         enemiesInstanciados.Add(IngameEnemy);
-
-
     }
     private GameObject typeofEspectro(string tipo) {
         switch (tipo) {
@@ -131,8 +125,7 @@ public class Spawner : MonoBehaviour
         {
             if (enemy.ID == enemiesInstanciados[i].information.ID)
             {
-               
-               enemiesInstanciados[i].entity.GetComponent<EnemyMovement>().move((float)enemy.posX - 0.5f, 19f -((float)enemy.posY - 0.5f));
+               enemiesInstanciados[i].entity.GetComponent<EnemyMovement>().move((float)enemy.posX + 0.5f, 19f -((float)enemy.posY - 0.5f));
             }
         }
     }
@@ -144,14 +137,12 @@ public class Spawner : MonoBehaviour
             Objecto objetoEnJuego = new Objecto();
             objetoEnJuego.information = objeto;
             //correct placement
-            Vector3 postition = new Vector3((float)objeto.posX - 0.5f, 0f, 19f- ((float)objeto.posY - 0.5f));
+            Vector3 postition = new Vector3((float)objeto.posX + 0.5f, 0f, 19f- ((float)objeto.posY - 0.5f));
             //instance the object
             GameObject instance = Instantiate(Jarron, transform.position + postition, transform.rotation);
 
-
             objetoEnJuego.entity = instance;
             objetosInstanciados.Add(objetoEnJuego);
-
         }
         else
         {//el ID es "K"
@@ -159,7 +150,7 @@ public class Spawner : MonoBehaviour
             Objecto objetoEnJuego = new Objecto();
             objetoEnJuego.information = objeto;
             //correct placement
-            Vector3 postition = new Vector3((float)objeto.posX - 0.5f, 0f, (float)objeto.posY - 0.5f);
+            Vector3 postition = new Vector3((float)objeto.posX + 0.5f, 0f, (float)objeto.posY - 0.5f);
             //________________________________  |
             //instance the object  remember to  V  Change that
             GameObject instance = Instantiate(Cofre, transform.position + postition, transform.rotation);
@@ -171,8 +162,7 @@ public class Spawner : MonoBehaviour
 
     }
 
-    private void updateObject(Objects objeto) {
-
+    public void updateObject(Objects objeto) {
         for (int i = 0; i < objetosInstanciados.Count; i++)
         {
             if ((objetosInstanciados[i].information.posY == objeto.posY) && (objetosInstanciados[i].information.posX == objeto.posX))
@@ -180,6 +170,6 @@ public class Spawner : MonoBehaviour
                 objetosInstanciados[i].information.DEATH = objeto.DEATH;
             }
         }
-
     }
+    private void voudUpdateVisualObject() { }
 }
