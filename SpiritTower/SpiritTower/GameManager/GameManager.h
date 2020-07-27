@@ -46,7 +46,7 @@ public:
 	void mapUpdate();
 	void returnBack();
 	void patrolling();
-	int level = 2;
+	int level = 0;
 	LinkedList* rangeAnalizer(Spectrum* spect);
 	void analizeIm(LinkedList*& result, int impar, string dir, Spectrum* spect);
 	void analizePa(LinkedList*& result, int pa, string dir, Spectrum* spect);
@@ -56,7 +56,6 @@ public:
 	vector<ChuChu*> chu;
 	vector<Spectrum*> spectrumList;
 	void fillEnemies();
-
 	vector<int> ratCuantity;
 	vector<int> eyeCuantity;
 	vector<int> chuCuantity;
@@ -88,6 +87,18 @@ public:
 	void spectrumAttack();
 
 	bool restartLvl = false;
+
+	list<Square*> crumbs;
+
+	void breadCrumbing(Spectrum* firsSpect);
+
+	void fillCrumbs();
+	
+	int playerTempX;
+	int playerTempY;
+
+	int spectIndex;
 };
+
 
 

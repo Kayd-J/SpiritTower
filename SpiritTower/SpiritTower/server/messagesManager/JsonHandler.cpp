@@ -11,7 +11,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     int posY = DataOne["posY"].asInt();
 
     //------------------------------Enemies-------------------------------------------------------------
-    
+    /*
     for (int i = 0; i < DataTwo.size(); ++i) {
         std::cout << DataTwo[i]["COLOR"] << std::endl;
         std::string colorEnemie = DataTwo[i]["COLOR"].asString();
@@ -19,14 +19,17 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
         std::string idEnemie = DataTwo[i]["ID"].asString();
         int posXEnemie = DataTwo[i]["posX"].asInt();
         int posYEnemie = DataTwo[i]["posY"].asInt();
-
+        
+        
         std::cout << "This is the Enemie Color-> " << colorEnemie << std::endl;
         std::cout << "This is the Enemie Score Death-> " << deathEnemie << std::endl;
         std::cout << "This is the Enemie ID-> " << idEnemie << std::endl;
         std::cout << "This his Enemie PosX-> " << posXEnemie << std::endl;
         std::cout << "This his Enemie PosY-> " << posYEnemie << std::endl;
+        
     }
 
+    
     //------------------------------Objects-------------------------------------------------------------
     for (int i = 0; i < DataThree.size(); ++i) {
         std::cout << DataThree[i]["COLOR"] << std::endl;
@@ -35,11 +38,13 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
         int posYObject = DataThree[i]["posX"].asInt();
         int posXObject = DataThree[i]["posY"].asInt();
 
+        
         std::cout << "This is the Object Score Death-> " << deathObject << std::endl;
         std::cout << "This is the Object ID-> " << idObject << std::endl;
         std::cout << "This his Object PosX-> " << posXObject << std::endl;
         std::cout << "This his Object PosY-> " << posYObject << std::endl;
         
+
         for (int j = 0; j < objetos.size(); j++) {
             if ((objetos.at(j)->posX == posXObject) && (objetos.at(j)->posY == posYObject)) {
                 if (deathObject && !objetos.at(i)->given) {
@@ -59,18 +64,20 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
 
     std::cout << "This is the BOSS STATUS -> " << std::endl;
 
+    
     std::cout << "This is the Boss Health-> " << healthBoss << std::endl;
     std::cout << "This is the Boss Score-> " << scoreBoss << std::endl;
     std::cout << "This is the Boss Shield-> " << shieldBoss << std::endl;
     std::cout << "This is the Boss Sword-> " << swordBoss << std::endl;
     std::cout << "This his Boss PosX-> " << posXBoss << std::endl;
     std::cout << "This his Boss PosY-> " << posYBoss << std::endl;
-
+    
 
     //system("pause");
+    */
     
-    player->setPosX(posX);
-    player->setPosY(posY);
+    player->setPosX(posY);
+    player->setPosY(posX);
     player->setHealth(health);
     player->setScore(score);
     player->setShield(shield);
