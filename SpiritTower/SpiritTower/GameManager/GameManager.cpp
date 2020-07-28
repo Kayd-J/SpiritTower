@@ -7,7 +7,7 @@ GameManager* GameManager::instance = 0;
 GameManager::GameManager() {
 	player = new Player();
 	breed = new breeder();
-	//breed->newGeneration();
+	//->newGeneration();
 	matrixLevel.createMatrix(20, 20);
 	nextLevel();
 	//cout << Serialize::SerializeData(player,spectrumList,rats,specEye,chu,objectList,player);
@@ -109,25 +109,41 @@ void GameManager::chasing() {
 	}
 	if (everybodyFindPlayer == 1) {
 		for (int i = 0; i < size; i++) {
-			if (cycles % ((8 - (spectrumList.at(i))->getChase_speed()) * 2) == 0) {
-				int x = (spectrumList.at(i))->tempX;
-				int y = (spectrumList.at(i))->tempY;
-				Square* start = matrixLevel.findSquare(x, y);
-				Square* end = matrixLevel.findSquare(player->getPosX(), player->getPosY());
-				if (start == end) {
-					(spectrumList.at(i))->catchPlayer = true;
-				}
-				else if (spectrumList.at(i)->catchPlayer == false) {
-					if (i!=spectIndex) {
-						LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
-						(spectrumList.at(i))->tempY = tempList.getHead()->getSquare()->getColNumb();
-						(spectrumList.at(i))->tempX = tempList.getHead()->getSquare()->getRowNumb();
-						//tempList.display();
+			if (searchingRats(rangeAnalizer(spectrumList.at(i))) == false) {
+				if (cycles % ((8 - (spectrumList.at(i))->getChase_speed()) * 2) == 0) {
+					int x = (spectrumList.at(i))->tempX;
+					int y = (spectrumList.at(i))->tempY;
+					Square* start = matrixLevel.findSquare(x, y);
+					Square* end = matrixLevel.findSquare(player->getPosX(), player->getPosY());
+					if (start == end) {
+						(spectrumList.at(i))->catchPlayer = true;
 					}
-					else {
-						breadCrumbing(spectrumList.at(i));
+					else if (spectrumList.at(i)->catchPlayer == false) {
+						if (i != spectIndex) {
+							LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
+							int fx = tempList.getHead()->getSquare()->getRowNumb();
+							int fy = tempList.getHead()->getSquare()->getColNumb();
+							if (fx > (spectrumList.at(i)->tempX)) {
+								spectrumList.at(i)->dir = "S";
+							}
+							else if (fx < (spectrumList.at(i)->tempX)) {
+								spectrumList.at(i)->dir = "N";
+							}
+							else if (fy > (spectrumList.at(i)->tempY)) {
+								spectrumList.at(i)->dir = "E";
+							}
+							else if (fy < (spectrumList.at(i)->tempY)) {
+								spectrumList.at(i)->dir = "W";
+							}
+							(spectrumList.at(i))->tempY = fy;
+							(spectrumList.at(i))->tempX = fx;
+							//tempList.display();
+						}
+						else {
+							breadCrumbing(spectrumList.at(i));
+						}
+						spectrumList.at(i)->movimientos++;
 					}
-					spectrumList.at(i)->movimientos++;
 				}
 			}
 		}
@@ -195,9 +211,23 @@ void GameManager::returnBack() {
 						(*it)->backTrackPath = backTrack.searchPath(matrixLevel, start, end);
 					}
 					else {
-						(*it)->tempY = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getColNumb();
-						(*it)->tempX = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getRowNumb();
-						cout << (*it)->getId() << endl;
+						int fx = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getRowNumb();
+						int fy = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getColNumb();
+						if (fx > ((*it)->tempX)) {
+							(*it)->dir = "S";
+						}
+						else if (fx < ((*it)->tempX)) {
+						(*it)->dir = "N";
+						}
+						else if (fy > ((*it)->tempY)) {
+							(*it)->dir = "E";
+						}
+						else if (fy < ((*it)->tempY)) {
+							(*it)->dir = "W";
+						}
+						(*it)->tempY = fy;
+						(*it)->tempX = fx;
+						//cout << (*it)->getId() << endl;
 						//(*it)->backTrackPath.display();
 						(*it)->backTrackPath.removeNode((*it)->backTrackPath.getHead()->getSquare());
 					}
@@ -217,7 +247,7 @@ void GameManager::patrolling() {
 	PathFinding pathFind;
 	int size = spectrumList.size();
 	for (int i=0; i < size; i++) {
-		if (!searchingRats(rangeAnalizer(spectrumList.at(i)))) {
+		if (searchingRats(rangeAnalizer(spectrumList.at(i)))==false) {
 			if (searchingPlayer(rangeAnalizer(spectrumList.at(i)))) {
 				teleportSpect((spectrumList.at(i))->posX, (spectrumList.at(i))->posY);
 				walking = false;
@@ -293,48 +323,48 @@ void GameManager::analizeIm(LinkedList*& result, int impar, string dir, Spectrum
 		if (dir == "N") {
 			x1 = spect->tempX - i;
 			y1 = spect->tempY + i;
-			if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+			if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 				result->addNode(matrixLevel.findSquare(x1, y1));
 			}
 			x2 = spect->tempX - i;
 			y2 = spect->tempY - i;
-			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+			if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 				result->addNode(matrixLevel.findSquare(x2, y2));
 			}
 		}
 		else if (dir == "S") {
 			x1 = spect->tempX + i;
 			y1 = spect->tempY + i;
-			if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+			if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 				result->addNode(matrixLevel.findSquare(x1, y1));
 			}
 			x2 = spect->tempX + i;
 			y2 = spect->tempY - i;
-			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+			if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 				result->addNode(matrixLevel.findSquare(x2, y2));
 			}
 		}
 		else if (dir == "W") {
 			x1 = spect->tempX + i;
 			y1 = spect->tempY - i;
-			if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+			if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 				result->addNode(matrixLevel.findSquare(x1, y1));
 			}
 			x2 = spect->tempX - i;
 			y2 = spect->tempY - i;
-			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+			if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 				result->addNode(matrixLevel.findSquare(x2, y2));
 			}
 		}
 		else {
 			x1 = spect->tempX + i;
 			y1 = spect->tempY + i;
-			if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+			if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 				result->addNode(matrixLevel.findSquare(x1, y1));
 			}
 			x2 = spect->tempX - i;
 			y2 = spect->tempY + i;
-			if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+			if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 				result->addNode(matrixLevel.findSquare(x2, y2));
 			}
 		}
@@ -348,36 +378,36 @@ void GameManager::analizePa(LinkedList*& result, int par, string dir, Spectrum* 
 			if (dir == "N") {
 				x1 = spect->tempX - 1 - i;
 				y1 = spect->tempY + j;
-				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 					result->addNode(matrixLevel.findSquare(x1, y1));
 				}
 				x2 = spect->tempX - 1 - i;
 				y2 = spect->tempY - j;
-				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 					result->addNode(matrixLevel.findSquare(x2, y2));
 				}
 			}
 			else if (dir == "S") {
 				x1 = spect->tempX + 1 + i;
 				y1 = spect->tempY + j;
-				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 					result->addNode(matrixLevel.findSquare(x1, y1));
 				}
 				x2 = spect->tempX + 1 + i;
 				y2 = spect->tempY - j;
-				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 					result->addNode(matrixLevel.findSquare(x2, y2));
 				}
 			}
 			else if (dir == "W") {
 				x1 = spect->tempX + j;
 				y1 = spect->tempY - 1 - i;
-				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 					result->addNode(matrixLevel.findSquare(x1, y1));
 				}
 				x2 = spect->tempX - j;
 				y2 = spect->tempY - 1 - i;
-				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 					result->addNode(matrixLevel.findSquare(x2, y2));
 				}
 
@@ -385,12 +415,12 @@ void GameManager::analizePa(LinkedList*& result, int par, string dir, Spectrum* 
 			else {
 				x1 = spect->tempX + j;
 				y1 = spect->tempY + 1 + i;
-				if (x1 > 0 && x1 < 20 && y1 > 0 && y1 < 19) {
+				if (x1 > 0 && x1 < 19 && y1 > 0 && y1 < 19) {
 					result->addNode(matrixLevel.findSquare(x1, y1));
 				}
 				x2 = spect->tempX - j;
 				y2 = spect->tempY + 1 + i;
-				if (x2 > 0 && x2 < 20 && y2 > 0 && y2 < 19) {
+				if (x2 > 0 && x2 < 19 && y2 > 0 && y2 < 19) {
 					result->addNode(matrixLevel.findSquare(x2, y2));
 				}
 			}
@@ -518,7 +548,8 @@ void run() {
 			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << "----"<<gmr->spectrumList.at(i)->getChase_speed()<<endl;
 		}
 		*/
-		/*
+		///*
+		gmr->mapUpdate();
 		auto it = gmr->spectrumList.begin();
 		auto last = gmr->spectrumList.end();
 		for (it; it != last; ++it) {
@@ -532,13 +563,13 @@ void run() {
 			}
 
 		}
-	
+		
 		cout << "--------------##MAPA CON RANGO##------------------------" << endl;
 		gmr->displayMap();
 		cout << "--------------&&MAPA CON RANGO&&------------------------" << endl;
 		
-		*/
-		this_thread::sleep_for(chrono::milliseconds(5));
+		//*/
+		this_thread::sleep_for(chrono::milliseconds(1));
 		
 		cout << "------------------------------------------" << endl;
 	}
@@ -552,9 +583,10 @@ void GameManager::nextLevel() {
 	objectList.clear();
 	spectrumList.clear();
 	crumbs.clear();
-	if (level != 1 && player->restart == false && level != 5) {
+	//if (level != 1 && player->restart == false && level != 5) {
 		breed->newGeneration();
-	}
+		breed->newGeneration();
+	//}
 	matrixLevel.fillMat(level);
 	fillMap(matrixLevel);
 	if (level == 1) {
@@ -930,9 +962,15 @@ bool GameManager::searchingRats(LinkedList* rangeArea) {
 	Node* temp = rangeArea->getHead();
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < rats.size(); j++) {
-			if (temp->getSquare()->getRowNumb() == rats.at(i)->posX && temp->getSquare()->getColNumb() == rats.at(i)->posY) {
-				return true;
+			if (temp->getSquare()->getRowNumb() == rats.at(j)->posX && temp->getSquare()->getColNumb() == rats.at(j)->posY) {
 				cout << "RAAAATAAA!" << endl;
+				cout << "RAAAATAAA!" << endl;
+				cout << "RAAAATAAA!" << endl;
+				cout << "RAAAATAAA!" << endl;
+				cout << "RAAAATAAA!" << endl;
+				cout << "RAAAATAAA!" << endl;
+				cout << "RAAAATAAA!" << endl;
+				return true;
 			}
 		}
 		temp = temp->getNext();
@@ -1046,9 +1084,11 @@ void GameManager::spectrumAttack(){
 
 void GameManager::breadCrumbing(Spectrum* firsSpect){
 	if (firsSpect->tempX!=player->getPosX() || firsSpect->tempY!=player->getPosY()){
-		firsSpect->tempX = crumbs.front()->getRowNumb();
-		firsSpect->tempY = crumbs.front()->getColNumb();
-		crumbs.pop_front();
+		if (crumbs.size()!=0) {
+			firsSpect->tempX = crumbs.front()->getRowNumb();
+			firsSpect->tempY = crumbs.front()->getColNumb();
+			crumbs.pop_front();
+		}
 	}
 }
 
