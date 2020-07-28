@@ -1,3 +1,11 @@
+/**
+* @file LinkedList.h
+* @version 1.0
+* @date 28/06/2020
+* @author MarioGR
+* @title LinkedList
+* @brief Lista doblemente Enlazada de Nodos
+*/
 #pragma once
 #include <iostream>
 #include "Node.h"
