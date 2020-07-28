@@ -83,6 +83,12 @@ list<Square*> Bresenham::doBresenham(int x1, int y1, int x2, int y2) {
 			//map[x][y] = '*';
 		}
 	}
+	/*
+	Square* bresen1 = new Square();
+	bresen1->setRowNumb(x2);
+	bresen1->setColNumb(y2);
+	temp.push_back(bresen1);
+	*/
 	return temp;
 }
 void Bresenham::print() {

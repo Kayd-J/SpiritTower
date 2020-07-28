@@ -401,26 +401,36 @@ void GameManager::fillEnemies() {
 	string sids = "SE";
 	string chuc = "H";
 	//rat for
-	for (int i = 0; i < ratCuantity.at(level - 1); i++) {
-		RatonSimple* temp = new RatonSimple();
-		temp->setId(rids.substr(i, 1));
-		temp->posX = ratPositions.at(level - 1).at(i)->getRowNumb();
-		temp->posY = ratPositions.at(level - 1).at(i)->getColNumb();
-		rats.push_back(temp);
+	if (level != 5) {
+		for (int i = 0; i < ratCuantity.at(level - 1); i++) {
+			RatonSimple* temp = new RatonSimple();
+			temp->setId(rids.substr(i, 1));
+			temp->posX = ratPositions.at(level - 1).at(i)->getRowNumb();
+			temp->posY = ratPositions.at(level - 1).at(i)->getColNumb();
+			rats.push_back(temp);
 
+		}
+		for (int i = 0; i < eyeCuantity.at(level - 1); i++) {
+			OjoEspectral* temp = new OjoEspectral();
+			temp->setId(sids.substr(i, 1));
+			temp->posX = eyePositions.at(level - 1).at(i)->getRowNumb();
+			temp->posY = eyePositions.at(level - 1).at(i)->getColNumb();
+			specEye.push_back(temp);
+		}
+		for (int i = 0; i < chuCuantity.at(level - 1); i++) {
+			ChuChu* temp = new ChuChu();
+			temp->setId(chuc);
+			temp->posX = chuPositions.at(level - 1).at(i)->getRowNumb();
+			temp->posY = chuPositions.at(level - 1).at(i)->getColNumb();
+			chu.push_back(temp);
+		}
 	}
-	for (int i = 0; i < eyeCuantity.at(level - 1); i++) {
-		OjoEspectral* temp = new OjoEspectral();
-		temp->setId(sids.substr(i, 1));
-		temp->posX = eyePositions.at(level - 1).at(i)->getRowNumb();
-		temp->posY = eyePositions.at(level - 1).at(i)->getColNumb();
-		specEye.push_back(temp);
-	}
-	for (int i = 0; i < chuCuantity.at(level - 1); i++) {
+	else {
 		ChuChu* temp = new ChuChu();
-		temp->setId(chuc);
-		temp->posX = chuPositions.at(level - 1).at(i)->getRowNumb();
-		temp->posY = chuPositions.at(level - 1).at(i)->getColNumb();
+		temp->setId("F");
+		temp->posX = chuPositions.at(level - 1).at(0)->getRowNumb();
+		temp->posY = chuPositions.at(level - 1).at(0)->getColNumb();
+		temp->health = 3;
 		chu.push_back(temp);
 	}
 }
@@ -431,12 +441,12 @@ void run() {
 		gmr->mapUpdate();
 		gmr->displayMap();
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
-		gmr->moveRat();
-		gmr->spectrumAttack();
+		if (gmr->level != 5) {
+			gmr->moveRat();
+			gmr->spectrumAttack();
+		}
 
 		cout << gmr->player->getHealth() << endl;
-
-
 		if (gmr->player->getHealth() <= 0) {
 			cout << "JUGADOR HA MUERTO" << endl;
 			gmr->level--;
@@ -458,45 +468,48 @@ void run() {
 			gmr->displayMap();
 			
 		}
-		if (gmr->level!=1 && gmr->level!=5) {
+		if (gmr->level!=1) {
 			gmr->moveChuchu();
 		}
-		if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 2) {
-			gmr->chasingPlayer = false;
-			cout << "ZONA SEGURA" << endl;
-		}
-		else if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 6) {
-			gmr->objectsFilled = false;
-			gmr->nextLevel();
-			cout << "CAMBIE DE NIVEL" << endl;
-			gmr->mapUpdate();
-			gmr->displayMap();
-			break;
-		}
-		if (gmr->walking == true) {
-			gmr->patrolling();
-			cout << "PATRULLANDO" << endl;
-		}
-		else if (gmr->chasingPlayer == true) {
-			gmr->fillCrumbs();
-			gmr->chasing();
-			cout << "PERSIGUIENDO" << endl;
-		}
-		else if (gmr->chasingPlayer == false && gmr->walking == false) {
-			gmr->returnBack();
-			cout << "REGRESANDO" << endl;
+		if (gmr->level != 5) {
+			if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 2) {
+				gmr->chasingPlayer = false;
+				cout << "ZONA SEGURA" << endl;
+			}
+			else if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 6) {
+				gmr->objectsFilled = false;
+				gmr->nextLevel();
+				cout << "CAMBIE DE NIVEL" << endl;
+				gmr->mapUpdate();
+				gmr->displayMap();
+				break;
+			}
+			if (gmr->walking == true) {
+				gmr->patrolling();
+				cout << "PATRULLANDO" << endl;
+			}
+			else if (gmr->chasingPlayer == true) {
+				gmr->fillCrumbs();
+				gmr->chasing();
+				cout << "PERSIGUIENDO" << endl;
+			}
+			else if (gmr->chasingPlayer == false && gmr->walking == false) {
+				gmr->returnBack();
+				cout << "REGRESANDO" << endl;
+			}
 		}
 		cout << "----------------------------------------------" << endl;
 
 		gmr->cycles++;
 		
+		/*
 		cout << gmr->cycles << endl;
 		this_thread::sleep_for(chrono::milliseconds(10));
 		int size = gmr->spectrumList.size();
 		for (int i = 0; i < size; i++) {
 			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << "----"<<gmr->spectrumList.at(i)->getChase_speed()<<endl;
 		}
-
+		*/
 		/*
 		auto it = gmr->spectrumList.begin();
 		auto last = gmr->spectrumList.end();
@@ -511,13 +524,11 @@ void run() {
 			}
 
 		}
-		cout << "--------------------------------------" << endl;
-		cout << "--------------------------------------" << endl;
-		cout << "--------------------------------------" << endl;
+	
+		cout << "--------------##MAPA CON RANGO##------------------------" << endl;
 		gmr->displayMap();
-		cout << "--------------------------------------" << endl;
-		cout << "--------------------------------------" << endl;
-		cout << "--------------------------------------" << endl;
+		cout << "--------------&&MAPA CON RANGO&&------------------------" << endl;
+		
 		*/
 	}
 }
@@ -530,17 +541,20 @@ void GameManager::nextLevel() {
 	objectList.clear();
 	spectrumList.clear();
 	crumbs.clear();
-	if (level != 1 && restartLvl == false) {
+	if (level != 1 && restartLvl == false && level != 5) {
 		breed->newGeneration();
 	}
 	matrixLevel.fillMat(level);
 	fillMap(matrixLevel);
-	if (level == 1) {
+	if (level == 5) {
 		levelsFiller();
 	}
 	player->setPosX(playerPositions.at(level - 1).at(0)->getRowNumb());
 	player->setPosY(playerPositions.at(level - 1).at(0)->getColNumb());
-	fillSpectrums();
+	
+	if (level!=5) {
+		fillSpectrums();
+	}
 	fillEnemies();
 }
 
@@ -559,6 +573,7 @@ void GameManager::levelsFiller() {
 
 	//cantidad de chuchus por nivel
 	chuCuantity.push_back(0);
+	chuCuantity.push_back(1);
 	chuCuantity.push_back(1);
 	chuCuantity.push_back(1);
 	chuCuantity.push_back(1);
@@ -696,6 +711,13 @@ void GameManager::levelsFiller() {
 	chuVect3.push_back(chu3);
 	chuPositions.push_back(chuVect3);
 
+	vector<Square*> chuVect4;
+	Square* chu4 = new Square();
+	chu4->setRowNumb(10);
+	chu4->setColNumb(16);
+	chuVect4.push_back(chu4);
+	chuPositions.push_back(chuVect4);
+
 
 	//ESPECTROS
 	vector<Square*> spectrumVect1;
@@ -760,6 +782,7 @@ void GameManager::levelsFiller() {
 	spectrumVect4.push_back(spectrum11);
 	spectrumVect4.push_back(spectrum12);
 	spectrumPositions.push_back(spectrumVect4);
+
 
 	//////////////////////
 	//posicones finales area de patrullaje
@@ -868,6 +891,12 @@ void GameManager::levelsFiller() {
 	playerVect4.push_back(player4);
 	playerPositions.push_back(playerVect4);
 
+	vector<Square*> playerVect5;
+	Square* player5 = new Square();
+	player5->setRowNumb(10);
+	player5->setColNumb(12);
+	playerVect5.push_back(player5);
+	playerPositions.push_back(playerVect5);
 
 }
 
@@ -1006,16 +1035,45 @@ void GameManager::fillCrumbs(){
 }
 
 void GameManager::moveChuchu(){
-	if (cycles%10==0) {
-		Bresenham bresen;
-		int cx = chu.at(0)->posX;
-		int cy = chu.at(0)->posY;
-		chuchuPath = bresen.doBresenham(cx, cy, player->getPosX(), player->getPosY());
-		int nx = chuchuPath.front()->getRowNumb();
-		int ny = chuchuPath.front()->getColNumb();
-		if (map[nx][ny] == "0") {
-			chu.at(0)->posX = nx;
-			chu.at(0)->posY = ny;
+	int velocidad;
+	if (level!=5) {
+		velocidad = 10;
+	}
+	if (level ==5) {
+		velocidad = 7;
+	}
+	if (chu.at(0)->posX != player->getPosX() || chu.at(0)->posY != player->getPosY()) {
+		if (cycles % velocidad == 0) {
+			Bresenham bresen;
+			if (level != 5) {
+				int cx = chu.at(0)->posX;
+				int cy = chu.at(0)->posY;
+				chuchuPath = bresen.doBresenham(cx, cy, player->getPosX(), player->getPosY());
+				int nx = chuchuPath.front()->getRowNumb();
+				int ny = chuchuPath.front()->getColNumb();
+				if (map[nx][ny] == "0" || map[nx][ny] == "P") {
+					chu.at(0)->posX = nx;
+					chu.at(0)->posY = ny;
+				}
+			}
+			else {
+				if (player->getPosY() > 11) {
+					int cx = chu.at(0)->posX;
+					int cy = chu.at(0)->posY;
+					chuchuPath = bresen.doBresenham(cx, cy, player->getPosX(), player->getPosY());
+					int nx = chuchuPath.front()->getRowNumb();
+					int ny = chuchuPath.front()->getColNumb();
+					if (map[nx][ny] == "0" || map[nx][ny] == "P") {
+						chu.at(0)->posX = nx;
+						chu.at(0)->posY = ny;
+					}
+				}
+			}
+		}
+	}
+	else {
+		if (cycles % velocidad == 0) {
+			player->setHealth(player->getHealth() - 1);
 		}
 	}
 }
