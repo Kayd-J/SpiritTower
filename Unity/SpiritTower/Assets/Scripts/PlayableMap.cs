@@ -51,6 +51,11 @@ public class PlayableMap : MonoBehaviour
         UDPSend.sendString(playerToJason);
 
         Movement.informacion.Sword = false;
+
+
+        if (mapPlayerPosX == finalX && 19-mapPlayerPosY == finalY) {
+            SceneManager.LoadScene(++lvlcounter);
+        }
         
 
         //Recibo mensajes______________
