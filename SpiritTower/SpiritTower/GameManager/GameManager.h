@@ -16,6 +16,7 @@
 #include "../Objects/Cofre.h"
 #include "../Objects/Jarron.h"
 #include "../Objects/Objeto.h"
+#include "../Algorithms/Bresenham.h"
 
 
 using namespace std;
@@ -98,6 +99,10 @@ public:
 	int playerTempY;
 
 	int spectIndex;
+	
+	list<Square*> chuchuPath;
+
+	void moveChuchu();
 };
 
 

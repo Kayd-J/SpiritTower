@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Algorithms\BackTracking.cpp" />
+    <ClCompile Include="Algorithms\Bresenham.cpp" />
     <ClCompile Include="Objects\Cofre.cpp" />
     <ClCompile Include="Enemies\breeder.cpp" />
     <ClCompile Include="Enemies\ChuChu.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Algorithms\BackTracking.h" />
+    <ClInclude Include="Algorithms\Bresenham.h" />
     <ClInclude Include="Objects\Cofre.h" />
     <ClInclude Include="Enemies\breeder.h" />
     <ClInclude Include="Enemies\ChuChu.h" />

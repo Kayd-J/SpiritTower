@@ -5,8 +5,10 @@
 #include <sstream>
 #include "GameManager/GameManager.h"
 #include "server/Server.h"
+#include "Algorithms/Bresenham.h"
 
 using namespace std;
+
 
 int main() {
 	srand(time(NULL));
@@ -14,6 +16,5 @@ int main() {
 	if (server.init() != 0) {
 		server.run();
 	}
-
 	return 0;
 }

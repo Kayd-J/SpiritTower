@@ -448,6 +448,9 @@ void run() {
 			gmr->displayMap();
 			
 		}
+		if (gmr->level!=1 && gmr->level!=5) {
+			gmr->moveChuchu();
+		}
 		if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 2) {
 			gmr->chasingPlayer = false;
 			cout << "ZONA SEGURA" << endl;
@@ -966,6 +969,21 @@ void GameManager::fillCrumbs(){
 		crumbs.push_back(playerPos);
 		playerTempX = player->getPosX();
 		playerTempY = player->getPosY();
+	}
+}
+
+void GameManager::moveChuchu(){
+	if (cycles%10==0) {
+		Bresenham bresen;
+		int cx = chu.at(0)->posX;
+		int cy = chu.at(0)->posY;
+		chuchuPath = bresen.doBresenham(cx, cy, player->getPosX(), player->getPosY());
+		int nx = chuchuPath.front()->getRowNumb();
+		int ny = chuchuPath.front()->getColNumb();
+		if (map[nx][ny] == "0") {
+			chu.at(0)->posX = nx;
+			chu.at(0)->posY = ny;
+		}
 	}
 }
 
