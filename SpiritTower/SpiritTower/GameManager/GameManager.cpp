@@ -122,14 +122,10 @@ void GameManager::chasing() {
 						LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
 						(spectrumList.at(i))->tempY = tempList.getHead()->getSquare()->getColNumb();
 						(spectrumList.at(i))->tempX = tempList.getHead()->getSquare()->getRowNumb();
-						cout << (spectrumList.at(i))->getId() << endl;
-						cout << "JUEPUTAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
 						tempList.display();
 					}
 					else {
-						cout << "JOSE NECIOOOOOOOOO" << endl;
 						breadCrumbing(spectrumList.at(i));
-						cout << "MIERDAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
 					}
 					spectrumList.at(i)->movimientos++;
 				}
@@ -243,8 +239,22 @@ void GameManager::patrolling() {
 
 			if (start != end) {
 				LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
-				(spectrumList.at(i))->tempY = tempList.getHead()->getSquare()->getColNumb();
-				(spectrumList.at(i))->tempX = tempList.getHead()->getSquare()->getRowNumb();
+				int fy = tempList.getHead()->getSquare()->getColNumb();
+				int fx = tempList.getHead()->getSquare()->getRowNumb();
+				if (fx > (spectrumList.at(i)->tempX)) {
+					spectrumList.at(i)->dir = "S";
+				}
+				else if (fx < (spectrumList.at(i)->tempX)) {
+					spectrumList.at(i)->dir = "N";
+				}
+				else if (fy > (spectrumList.at(i)->tempY)) {
+					spectrumList.at(i)->dir = "E";
+				}
+				else if (fy < (spectrumList.at(i)->tempY)) {
+					spectrumList.at(i)->dir = "W";
+				}
+				spectrumList.at(i)->tempY = fy;
+				spectrumList.at(i)->tempX =fx;
 			}
 			else {
 				int tempX = (spectrumList.at(i))->patrollArea->getHead()->getSquare()->getRowNumb();
@@ -486,6 +496,29 @@ void run() {
 		for (int i = 0; i < size; i++) {
 			cout << gmr->spectrumList.at(i)->getId() << "-----------" << gmr->spectrumList.at(i)->movimientos << "----"<<gmr->spectrumList.at(i)->getChase_speed()<<endl;
 		}
+
+		/*
+		auto it = gmr->spectrumList.begin();
+		auto last = gmr->spectrumList.end();
+		for (it; it != last; ++it) {
+			LinkedList* list = new LinkedList();
+			list = gmr->rangeAnalizer(*it);
+			int size1 = list->getSize();
+			Node* temp = list->getHead();
+			for (int i = 0; i < size1; i++) {
+				gmr->map[temp->getSquare()->getRowNumb()][temp->getSquare()->getColNumb()] = (*it)->getId();
+				temp = temp->getNext();
+			}
+
+		}
+		cout << "--------------------------------------" << endl;
+		cout << "--------------------------------------" << endl;
+		cout << "--------------------------------------" << endl;
+		gmr->displayMap();
+		cout << "--------------------------------------" << endl;
+		cout << "--------------------------------------" << endl;
+		cout << "--------------------------------------" << endl;
+		*/
 	}
 }
 
