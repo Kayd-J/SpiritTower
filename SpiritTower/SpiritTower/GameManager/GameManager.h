@@ -88,6 +88,8 @@ public:
 	void moveChuchu();
 	void playerAttackSpect();
 	void playerAttackChu();
+
+	bool searchingRats(LinkedList* rangeArea);
 };
 
 

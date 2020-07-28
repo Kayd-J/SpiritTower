@@ -217,52 +217,54 @@ void GameManager::patrolling() {
 	PathFinding pathFind;
 	int size = spectrumList.size();
 	for (int i=0; i < size; i++) {
-		if (searchingPlayer(rangeAnalizer(spectrumList.at(i)))) {
-			teleportSpect((spectrumList.at(i))->posX, (spectrumList.at(i))->posY);
-			walking = false;
-			chasingPlayer = true;
-			playerTempX = player->getPosX();
-			playerTempY = player->getPosY();
-			spectIndex = i;
-			break;
-		}
-		if (cycles % ((8 - (spectrumList.at(i))->getSrch_speed()) * 2) == 0) {
-			(spectrumList.at(i))->movimientos++;
-			int initialX = (spectrumList.at(i))->tempX;
-			int initialY = (spectrumList.at(i))->tempY;
-
-			int endX = (spectrumList.at(i))->patrollArea->getTail()->getSquare()->getRowNumb();
-			int endY = (spectrumList.at(i))->patrollArea->getTail()->getSquare()->getColNumb();
-
-			Square* start = matrixLevel.findSquare(initialX, initialY);
-			Square* end = matrixLevel.findSquare(endX, endY);
-
-			if (start != end) {
-				LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
-				int fy = tempList.getHead()->getSquare()->getColNumb();
-				int fx = tempList.getHead()->getSquare()->getRowNumb();
-				if (fx > (spectrumList.at(i)->tempX)) {
-					spectrumList.at(i)->dir = "S";
-				}
-				else if (fx < (spectrumList.at(i)->tempX)) {
-					spectrumList.at(i)->dir = "N";
-				}
-				else if (fy > (spectrumList.at(i)->tempY)) {
-					spectrumList.at(i)->dir = "E";
-				}
-				else if (fy < (spectrumList.at(i)->tempY)) {
-					spectrumList.at(i)->dir = "W";
-				}
-				spectrumList.at(i)->tempY = fy;
-				spectrumList.at(i)->tempX =fx;
+		if (!searchingRats(rangeAnalizer(spectrumList.at(i)))) {
+			if (searchingPlayer(rangeAnalizer(spectrumList.at(i)))) {
+				teleportSpect((spectrumList.at(i))->posX, (spectrumList.at(i))->posY);
+				walking = false;
+				chasingPlayer = true;
+				playerTempX = player->getPosX();
+				playerTempY = player->getPosY();
+				spectIndex = i;
+				break;
 			}
-			else {
-				int tempX = (spectrumList.at(i))->patrollArea->getHead()->getSquare()->getRowNumb();
-				int tempY = (spectrumList.at(i))->patrollArea->getHead()->getSquare()->getColNumb();
-				(spectrumList.at(i))->patrollArea->getHead()->getSquare()->setRowNumb(endX);
-				(spectrumList.at(i))->patrollArea->getHead()->getSquare()->setColNumb(endY);
-				(spectrumList.at(i))->patrollArea->getTail()->getSquare()->setRowNumb(tempX);
-				(spectrumList.at(i))->patrollArea->getTail()->getSquare()->setColNumb(tempY);
+			if (cycles % ((8 - (spectrumList.at(i))->getSrch_speed()) * 2) == 0) {
+				(spectrumList.at(i))->movimientos++;
+				int initialX = (spectrumList.at(i))->tempX;
+				int initialY = (spectrumList.at(i))->tempY;
+
+				int endX = (spectrumList.at(i))->patrollArea->getTail()->getSquare()->getRowNumb();
+				int endY = (spectrumList.at(i))->patrollArea->getTail()->getSquare()->getColNumb();
+
+				Square* start = matrixLevel.findSquare(initialX, initialY);
+				Square* end = matrixLevel.findSquare(endX, endY);
+
+				if (start != end) {
+					LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
+					int fy = tempList.getHead()->getSquare()->getColNumb();
+					int fx = tempList.getHead()->getSquare()->getRowNumb();
+					if (fx > (spectrumList.at(i)->tempX)) {
+						spectrumList.at(i)->dir = "S";
+					}
+					else if (fx < (spectrumList.at(i)->tempX)) {
+						spectrumList.at(i)->dir = "N";
+					}
+					else if (fy > (spectrumList.at(i)->tempY)) {
+						spectrumList.at(i)->dir = "E";
+					}
+					else if (fy < (spectrumList.at(i)->tempY)) {
+						spectrumList.at(i)->dir = "W";
+					}
+					spectrumList.at(i)->tempY = fy;
+					spectrumList.at(i)->tempX = fx;
+				}
+				else {
+					int tempX = (spectrumList.at(i))->patrollArea->getHead()->getSquare()->getRowNumb();
+					int tempY = (spectrumList.at(i))->patrollArea->getHead()->getSquare()->getColNumb();
+					(spectrumList.at(i))->patrollArea->getHead()->getSquare()->setRowNumb(endX);
+					(spectrumList.at(i))->patrollArea->getHead()->getSquare()->setColNumb(endY);
+					(spectrumList.at(i))->patrollArea->getTail()->getSquare()->setRowNumb(tempX);
+					(spectrumList.at(i))->patrollArea->getTail()->getSquare()->setColNumb(tempY);
+				}
 			}
 		}
 	}
@@ -916,6 +918,22 @@ bool GameManager::searchingPlayer(LinkedList* rangeArea) {
 	for (int i = 0; i < size; i++) {
 		if (temp->getSquare()->getRowNumb() == player->getPosX() && temp->getSquare()->getColNumb() == player->getPosY()) {
 			return true;
+		}
+		temp = temp->getNext();
+	}
+	return false;
+}
+
+bool GameManager::searchingRats(LinkedList* rangeArea) {
+	//cout << "BUSCANDO RATONES" << endl;
+	int size = rangeArea->getSize();
+	Node* temp = rangeArea->getHead();
+	for (int i = 0; i < size; i++) {
+		for (int j = 0; j < rats.size(); j++) {
+			if (temp->getSquare()->getRowNumb() == rats.at(i)->posX && temp->getSquare()->getColNumb() == rats.at(i)->posY) {
+				return true;
+				cout << "RAAAATAAA!" << endl;
+			}
 		}
 		temp = temp->getNext();
 	}
