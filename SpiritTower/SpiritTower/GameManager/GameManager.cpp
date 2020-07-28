@@ -441,9 +441,11 @@ void run() {
 		gmr->mapUpdate();
 		gmr->displayMap();
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
+		gmr->playerAttackChu();
 		if (gmr->level != 5) {
 			gmr->moveRat();
 			gmr->spectrumAttack();
+			gmr->playerAttackSpect();
 		}
 
 		cout << gmr->player->getHealth() << endl;
@@ -1074,6 +1076,66 @@ void GameManager::moveChuchu(){
 	else {
 		if (cycles % velocidad == 0) {
 			player->setHealth(player->getHealth() - 1);
+		}
+	}
+}
+
+void GameManager::playerAttackSpect(){
+	if (player->getSword() == true) {
+		int spectSize = spectrumList.size();
+		for (int i = 0; i < spectSize; i++) {
+			if (spectrumList.at(i)->dir == "N" && player->dir == "N") {
+				if (player->getPosX() == (spectrumList.at(i)->tempX +1)) {
+					spectrumList.at(i)->death = true;
+					spectrumList.at(i)->setId("M");
+				}
+			}
+			if (spectrumList.at(i)->dir == "S" && player->dir == "S") {
+				if (player->getPosX() == (spectrumList.at(i)->tempX - 1)) {
+					spectrumList.at(i)->death = true;
+					spectrumList.at(i)->setId("M");
+				}
+			}
+			if (spectrumList.at(i)->dir == "E" && player->dir == "E") {
+				if (player->getPosY() == (spectrumList.at(i)->tempY - 1)) {
+					spectrumList.at(i)->death = true;
+					spectrumList.at(i)->setId("M");
+				}
+			}
+			if (spectrumList.at(i)->dir == "W" && player->dir == "W") {
+				if (player->getPosY() == (spectrumList.at(i)->tempY + 1)) {
+					spectrumList.at(i)->death = true;
+					spectrumList.at(i)->setId("M");
+				}
+			}
+		}
+	}
+}
+
+void GameManager::playerAttackChu(){
+	if (player->getSword() == true) {
+		int chuSize = chu.size();
+		for (int i = 0; i < chuSize; i++) {
+			if (player->dir == "N") {
+				if ((chu.at(i)->posX - 1) == player->getPosX() && chu.at(i)->posY == player->getPosY()) {
+					chu.at(i)->death = true;
+				}
+			}
+			if (player->dir == "S") {
+				if ((chu.at(i)->posX + 1) == player->getPosX() && chu.at(i)->posY == player->getPosY()) {
+					chu.at(i)->death = true;
+				}
+			}
+			if (player->dir == "E") {
+				if (chu.at(i)->posX == player->getPosX() && (chu.at(i)->posY + 1) == player->getPosY()) {
+					chu.at(i)->death = true;
+				}
+			}
+			if (player->dir == "W") {
+				if ((chu.at(i)->posX - 1) == player->getPosX() && (chu.at(i)->posY - 1) == player->getPosY()) {
+					chu.at(i)->death = true;
+				}
+			}
 		}
 	}
 }

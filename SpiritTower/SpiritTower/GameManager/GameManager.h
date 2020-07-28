@@ -37,8 +37,6 @@ public:
 	string map[20][20];
 	string sendMap;
 	void fillMap(Matrix mat);
-	//Entidad enemigos
-	//Entidad Jugador(singleton)
 	void fillSpectrums();
 	void displayMap();
 	void chasing();
@@ -71,38 +69,25 @@ public:
 	bool searchingPlayer(LinkedList* rangeArea);
 	int cycles = 0;
 	void moveRat();
-
 	void objectsUpdate();
-
 	vector<string> spectrumColors;
-
 	vector<Objeto*> objectList;
 	bool objectsFilled = false;
-
 	string dataToSend;
-
 	void eyesVision();
-
 	void teleportSpect(int x, int y);
-
 	void spectrumAttack();
-
 	bool restartLvl = false;
-
 	list<Square*> crumbs;
-
 	void breadCrumbing(Spectrum* firsSpect);
-
 	void fillCrumbs();
-	
 	int playerTempX;
 	int playerTempY;
-
 	int spectIndex;
-	
 	list<Square*> chuchuPath;
-
 	void moveChuchu();
+	void playerAttackSpect();
+	void playerAttackChu();
 };
 
 

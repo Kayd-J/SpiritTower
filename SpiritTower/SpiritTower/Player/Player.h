@@ -19,6 +19,7 @@ public:
     void setScore(int _score);
     void setShield(bool _shield);
     void setSword(bool _sword);
+    string dir;
 
 private:
     int posX;
@@ -28,4 +29,5 @@ private:
     int score = 0;
     bool shield = false;
     bool sword = false;
+
 };
