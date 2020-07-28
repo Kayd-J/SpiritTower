@@ -150,7 +150,7 @@ public class Spawner : MonoBehaviour
             Objecto objetoEnJuego = new Objecto();
             objetoEnJuego.information = objeto;
             //correct placement
-            Vector3 postition = new Vector3((float)objeto.posX + 0.5f, 0f, (float)objeto.posY - 0.5f);
+            Vector3 postition = new Vector3((float)objeto.posX + 0.5f, 0f, 19- ((float)objeto.posY - 0.5f));
             //________________________________  |
             //instance the object  remember to  V  Change that
             GameObject instance = Instantiate(Cofre, transform.position + postition, transform.rotation);

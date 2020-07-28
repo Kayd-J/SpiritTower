@@ -39,12 +39,12 @@ public class PlayableMap : MonoBehaviour
 
         //Recibo mensajes______________
 
-        UDPSend.messageSV = "{\"Player\": {\"Health\": 1, \"Score\": 100, \"Shield\": false, \"Sword\": true, \"posX\": false, \"posY\": true }, \"Enemies\": [{\"ID\": \"B\",\"COLOR\": \"g\", \"DEATH\": false, \"posX\": 3, \"posY\": 2 } ], \"Objects\": [ { \"ID\": \"J\", \"DEATH\": false, \"posX\": 2, \"posY\": 3 }, {\"ID\": \"J\", \"DEATH\": false, \"posX\": 2, \"posY\": 2 } ] }"; 
+        UDPSend.messageSV = "{\"Player\": {\"Health\": 1, \"Score\": 100, \"Shield\": false, \"Sword\": true, \"posX\": false, \"posY\": true }, \"Enemies\": [{\"ID\": \"B\",\"COLOR\": \"g\", \"DEATH\": false, \"posX\": 3, \"posY\": 2 } ], \"Objects\": [ { \"ID\": \"K\", \"DEATH\": false, \"posX\": 2, \"posY\": 3 }, {\"ID\": \"J\", \"DEATH\": false, \"posX\": 2, \"posY\": 2 } ] }"; 
 
         if (UDPSend.messageSV != null)
         {
             information = JsonHelper.FromJson(UDPSend.messageSV);
-            //Player actualPlayer = informacion.Player;
+            Player actualPlayer = information.Player;
             Enemies[] deserializados = information.Enemies;
             Objects[] objetosdeserializados = information.Objects;
 

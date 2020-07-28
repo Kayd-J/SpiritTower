@@ -3,8 +3,8 @@ using UnityEngine;
 [Serializable]
 public class Player
 {
-    public int Health=100;
-    public int Score=10;
+    public int Health=5;
+    public int Score=0;
     public string Direction = "N";
     public int posX=2;
     public int posY=3;

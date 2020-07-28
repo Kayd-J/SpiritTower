@@ -104,6 +104,13 @@ public class Movement : MonoBehaviour
         }
         
     }
+
+    void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag.Equals("FinisgLvl")) {
+            print("Final de nivel");
+        
+        }
+    }
 }
 
 
