@@ -31,15 +31,17 @@ string Serialize::SerializeData(Player* player, vector<Spectrum*> ListaEspectros
 	json_object* score = json_object_new_int(player->getScore());
 	json_object* shield = json_object_new_boolean(player->getShield());
 	json_object* sword = json_object_new_boolean(player->getScore());
-	json_object* posX = json_object_new_boolean(player->getPosX());
-	json_object* posY = json_object_new_boolean(player->getPosY());
+	json_object* posX = json_object_new_int(player->getPosX());
+	json_object* posY = json_object_new_int(player->getPosY());
+	json_object* restart = json_object_new_boolean(player->restart);
 
 	json_object_object_add(playerStats, "Health", health);
 	json_object_object_add(playerStats, "Score", score);
 	json_object_object_add(playerStats, "Shield", shield);
 	json_object_object_add(playerStats, "Sword", sword);
-	json_object_object_add(playerStats, "posX", shield);
-	json_object_object_add(playerStats, "posY", sword);
+	json_object_object_add(playerStats, "posX", posY);
+	json_object_object_add(playerStats, "posY", posX);
+	json_object_object_add(playerStats, "restart", restart);
 
 	//-------------------------------------Enemie------------------------------------------------------
 

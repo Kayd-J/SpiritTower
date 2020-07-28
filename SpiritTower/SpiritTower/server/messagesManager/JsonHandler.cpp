@@ -9,6 +9,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     bool sword = DataOne["Sword"].asBool();
     int posX = DataOne["posX"].asInt();
     int posY = DataOne["posY"].asInt();
+    string dir = DataOne["Direction"].asCString();
 
     //------------------------------Enemies-------------------------------------------------------------
     /*
@@ -84,6 +85,7 @@ bool JsonHandler::handlingReceivedData(Json::Value DataOne, Json::Value DataTwo,
     //player->setScore(score);
     player->setShield(shield);
     player->setSword(sword);
+    player->dir = dir;
 
     return true;
 }

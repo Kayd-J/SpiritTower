@@ -440,6 +440,7 @@ void run() {
 	while (gmr->inGame) {
 		gmr->mapUpdate();
 		gmr->displayMap();
+		gmr->objectsUpdate();
 		gmr->dataToSend = Serialize::SerializeData(gmr->player, gmr->spectrumList, gmr->rats, gmr->specEye, gmr->chu, gmr->objectList, gmr->player);
 		gmr->playerAttackChu();
 		if (gmr->level != 5) {
@@ -456,11 +457,11 @@ void run() {
 			gmr->player->setScore(gmr->player->getScore() - 300);
 			cout << gmr->player->getHealth();
 			cout << gmr->player->getScore();
-			gmr->restartLvl = true;
+			gmr->player->restart = true;
 			gmr->nextLevel();
 			gmr->chasingPlayer = false;
 			gmr->walking = true;
-			gmr->restartLvl = false;
+			gmr->player->restart = false;
 		}
 		//cout << gmr->player->getPosX() << "--" << gmr->player->getPosY() << endl;
 		
@@ -501,6 +502,9 @@ void run() {
 			}
 		}
 		//cout << "----------------------------------------------" << endl;
+		
+		gmr->player->setSword(false);
+		gmr->player->setShield(false);
 
 		gmr->cycles++;
 		
@@ -546,7 +550,7 @@ void GameManager::nextLevel() {
 	objectList.clear();
 	spectrumList.clear();
 	crumbs.clear();
-	if (level != 1 && restartLvl == false && level != 5) {
+	if (level != 1 && player->restart == false && level != 5) {
 		breed->newGeneration();
 	}
 	matrixLevel.fillMat(level);

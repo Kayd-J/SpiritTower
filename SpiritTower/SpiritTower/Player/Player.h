@@ -20,6 +20,7 @@ public:
     void setShield(bool _shield);
     void setSword(bool _sword);
     string dir;
+    bool restart=false;
 
 private:
     int posX;
