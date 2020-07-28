@@ -15,7 +15,7 @@ LinkedList BackTracking::searchPath(Matrix mat, Square* start, Square* end) {
         start = searchPath(start, path, visited);
     }
     if (start == end) {
-        cout << "Camino Encontrado" << endl;
+        //cout << "Camino Encontrado" << endl;
     }
     else {
         cout << "No Hay Posible Camino" << endl;

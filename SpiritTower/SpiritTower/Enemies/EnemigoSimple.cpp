@@ -23,19 +23,19 @@ void EnemigoSimple::randomMove(std::string map[20][20]) {
 		randomBi = rand() % 2;
 		randomC = rand() % 2;
 		if (map[(randomX * orientation[randomBi]) + posX][(randomY * orientation[randomC]) + posY] != "0" || randomX * orientation[randomBi] == 0 || randomY * orientation[randomC] == 0 || (randomX * orientation[randomBi]) + posX >= 20 || (randomY * orientation[randomC]) + posY >= 20 || (randomX * orientation[randomBi]) + posX < 0 || (randomY * orientation[randomC]) + posY < 0) {
-			std::cout << "Can't Move" << std::endl;
+			//std::cout << "Can't Move" << std::endl;
 
 		}
 		else {
 			cantMove = 1;
-			std::cout << randomX << std::endl;
-			std::cout << "Moving" << std::endl;
+			//std::cout << randomX << std::endl;
+			//std::cout << "Moving" << std::endl;
 		}
 	}
 	tempY = randomY * orientation[randomC] + posY;
-	std::cout << posX << std::endl;
+	//std::cout << posX << std::endl;
 	tempX = randomX * orientation[randomBi] + posX;
-	std::cout << posY << std::endl;
+	//std::cout << posY << std::endl;
 
 
 }

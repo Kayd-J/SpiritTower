@@ -45,7 +45,7 @@ public:
 	void mapUpdate();
 	void returnBack();
 	void patrolling();
-	int level = 4;
+	int level = 0;
 	LinkedList* rangeAnalizer(Spectrum* spect);
 	void analizeIm(LinkedList*& result, int impar, string dir, Spectrum* spect);
 	void analizePa(LinkedList*& result, int pa, string dir, Spectrum* spect);

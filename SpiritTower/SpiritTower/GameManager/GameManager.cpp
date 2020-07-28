@@ -122,7 +122,7 @@ void GameManager::chasing() {
 						LinkedList tempList = pathFind.searchPath(matrixLevel, start, end);
 						(spectrumList.at(i))->tempY = tempList.getHead()->getSquare()->getColNumb();
 						(spectrumList.at(i))->tempX = tempList.getHead()->getSquare()->getRowNumb();
-						tempList.display();
+						//tempList.display();
 					}
 					else {
 						breadCrumbing(spectrumList.at(i));
@@ -198,7 +198,7 @@ void GameManager::returnBack() {
 						(*it)->tempY = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getColNumb();
 						(*it)->tempX = (*it)->backTrackPath.getHead()->getNext()->getSquare()->getRowNumb();
 						cout << (*it)->getId() << endl;
-						(*it)->backTrackPath.display();
+						//(*it)->backTrackPath.display();
 						(*it)->backTrackPath.removeNode((*it)->backTrackPath.getHead()->getSquare());
 					}
 				}
@@ -448,9 +448,9 @@ void run() {
 			gmr->playerAttackSpect();
 		}
 
-		cout << gmr->player->getHealth() << endl;
+		//cout << gmr->player->getHealth() << endl;
 		if (gmr->player->getHealth() <= 0) {
-			cout << "JUGADOR HA MUERTO" << endl;
+			//cout << "JUGADOR HA MUERTO" << endl;
 			gmr->level--;
 			gmr->player->setHealth(5);
 			gmr->player->setScore(gmr->player->getScore() - 300);
@@ -462,12 +462,12 @@ void run() {
 			gmr->walking = true;
 			gmr->restartLvl = false;
 		}
-		cout << gmr->player->getPosX() << "--" << gmr->player->getPosY() << endl;
+		//cout << gmr->player->getPosX() << "--" << gmr->player->getPosY() << endl;
 		
 		if (gmr->level == 3 || gmr->level == 4) {
 			gmr->eyesVision();
 			gmr->mapUpdate();
-			gmr->displayMap();
+			//gmr->displayMap();
 			
 		}
 		if (gmr->level!=1) {
@@ -476,31 +476,31 @@ void run() {
 		if (gmr->level != 5) {
 			if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 2) {
 				gmr->chasingPlayer = false;
-				cout << "ZONA SEGURA" << endl;
+				//cout << "ZONA SEGURA" << endl;
 			}
 			else if (gmr->matrixLevel.findSquare(gmr->player->getPosX(), gmr->player->getPosY())->getEntity() == 6) {
 				gmr->objectsFilled = false;
 				gmr->nextLevel();
-				cout << "CAMBIE DE NIVEL" << endl;
+				//cout << "CAMBIE DE NIVEL" << endl;
 				gmr->mapUpdate();
 				gmr->displayMap();
 				break;
 			}
 			if (gmr->walking == true) {
 				gmr->patrolling();
-				cout << "PATRULLANDO" << endl;
+				//cout << "PATRULLANDO" << endl;
 			}
 			else if (gmr->chasingPlayer == true) {
 				gmr->fillCrumbs();
 				gmr->chasing();
-				cout << "PERSIGUIENDO" << endl;
+				//cout << "PERSIGUIENDO" << endl;
 			}
 			else if (gmr->chasingPlayer == false && gmr->walking == false) {
 				gmr->returnBack();
-				cout << "REGRESANDO" << endl;
+				//cout << "REGRESANDO" << endl;
 			}
 		}
-		cout << "----------------------------------------------" << endl;
+		//cout << "----------------------------------------------" << endl;
 
 		gmr->cycles++;
 		
@@ -532,6 +532,9 @@ void run() {
 		cout << "--------------&&MAPA CON RANGO&&------------------------" << endl;
 		
 		*/
+		this_thread::sleep_for(chrono::milliseconds(5));
+		
+		cout << "------------------------------------------" << endl;
 	}
 }
 
@@ -548,7 +551,7 @@ void GameManager::nextLevel() {
 	}
 	matrixLevel.fillMat(level);
 	fillMap(matrixLevel);
-	if (level == 5) {
+	if (level == 1) {
 		levelsFiller();
 	}
 	player->setPosX(playerPositions.at(level - 1).at(0)->getRowNumb());
@@ -1020,9 +1023,11 @@ void GameManager::spectrumAttack(){
 }
 
 void GameManager::breadCrumbing(Spectrum* firsSpect){
-	firsSpect->tempX = crumbs.front()->getRowNumb();
-	firsSpect->tempY = crumbs.front()->getColNumb();
-	crumbs.pop_front();
+	if (firsSpect->tempX!=player->getPosX() || firsSpect->tempY!=player->getPosY()){
+		firsSpect->tempX = crumbs.front()->getRowNumb();
+		firsSpect->tempY = crumbs.front()->getColNumb();
+		crumbs.pop_front();
+	}
 }
 
 void GameManager::fillCrumbs(){
