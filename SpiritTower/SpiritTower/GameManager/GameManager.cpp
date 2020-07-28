@@ -937,7 +937,7 @@ void GameManager::levelsFiller() {
 	vector<Square*> playerVect5;
 	Square* player5 = new Square();
 	player5->setRowNumb(10);
-	player5->setColNumb(12);
+	player5->setColNumb(2);
 	playerVect5.push_back(player5);
 	playerPositions.push_back(playerVect5);
 
