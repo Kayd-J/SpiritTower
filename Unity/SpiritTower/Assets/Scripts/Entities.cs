@@ -9,7 +9,7 @@ public class Player
     public int posX=2;
     public int posY=3;
     public bool Shield=false;
-    public bool Sword=true;
+    public bool Sword=false;
 }
 
 [Serializable]

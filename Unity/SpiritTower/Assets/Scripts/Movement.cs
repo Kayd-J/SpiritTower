@@ -27,7 +27,10 @@ public class Movement : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            print("ataco");
+            informacion.Sword = true;
+        }
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            informacion.Shield = true;
         }
 
     }
@@ -92,8 +95,8 @@ public class Movement : MonoBehaviour
         if (itemPosX != -1) {
             for (int i = 0; i < Spawner.objetosInstanciados.Count; i++)
             {
-                print(itemPosX);
-                print(itemPosY);
+                //print(itemPosX);
+                //print(itemPosY);
 
                 if (Spawner.objetosInstanciados[i].information.posX == itemPosX && Spawner.objetosInstanciados[i].information.posY == itemPosY) {
                     Spawner.objetosInstanciados[i].information.DEATH = true;

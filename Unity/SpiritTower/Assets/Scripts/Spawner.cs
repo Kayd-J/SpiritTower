@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Spawner : MonoBehaviour
 {
@@ -13,9 +14,13 @@ public class Spawner : MonoBehaviour
     public GameObject EGris;
     public GameObject EAzul;
     public GameObject ERojo;
+
     public static List<MapEnemy> enemiesInstanciados;
     public static List<Objecto> objetosInstanciados;
     public static int TresureCount;
+
+    public Text treasureText;
+    
 
     public void CheckOrMove(Enemies[] enemies, Objects[] objetos) {
 
@@ -34,6 +39,7 @@ public class Spawner : MonoBehaviour
                 }
             }
         }
+        updateText();
         for (int i = 0; i < enemies.Length; i++)
         {
             if (enemiesInstanciados == null){
@@ -169,7 +175,31 @@ public class Spawner : MonoBehaviour
             {
                 objetosInstanciados[i].information.DEATH = objeto.DEATH;
             }
+            
         }
     }
+
+
     private void voudUpdateVisualObject() { }
+
+    private void updateText() {
+        TresureCount = 0;
+        int totalTreasures =0;
+        for (int i = 0; i < objetosInstanciados.Count; i++) {
+            if (objetosInstanciados[i].information.ID == "K") {
+                totalTreasures++;
+
+                //print(objetosInstanciados[i].information.DEATH);
+                if (objetosInstanciados[i].information.DEATH)
+                {
+                    TresureCount++;
+                }
+            }
+
+        }
+        treasureText.text = totalTreasures.ToString() + "/"+ TresureCount.ToString();
+
+        
+    }
+
 }
